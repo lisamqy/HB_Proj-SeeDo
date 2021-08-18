@@ -11,7 +11,7 @@ class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(16), nullable=False)
-    plans = db.Column(db.String, db.ForeignKey("plans.plan_id"))
+    
 
     def __repr__(self):
         """Show user's id and email."""
@@ -27,6 +27,10 @@ class Location(db.Model):
     zipcode = db.Column(db.Integer)
     cityname = db.Column(db.String(20),nullable=False)
     countryname = db.Column(db.String(20))
+    plan_id = db.Column(db.Integer,
+                        db.ForeignKey("plans.plan_id"))
+
+    plan = db.relationship("Plan", backref="locations")
 
     def __repr__(self):
         """Show location details."""
@@ -39,35 +43,31 @@ class Plan(db.Model):
     __tablename__ = "plans"
 
     plan_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # location_id = db.Column(db.Integer,
+    #                         db.ForeignKey("locations.location_id"),
+    #                         nullable=False)
+    # event_id = db.Column(db.Integer,
+    #                      db.ForeignKey("events.event_id"),
+    #                      nullable=False)
+    # image_id = db.Column(db.Integer,
+    #                      db.ForeignKey("images.image_id"))   
     user_id = db.Column(db.Integer,
-                        db.ForeignKey("users.user_id"),
-                        nullable=False)
-    location_id = db.Column(db.Integer,
-                            db.ForeignKey("locations.location_id"),
-                            nullable=False)
-    event_id = db.Column(db.Integer,
-                         db.ForeignKey("events.event_id"),
-                         nullable=False)
+                        db.ForeignKey("users.user_id"))
 
-    users = db.relationship("User", backref="plans")
-    locations = db.relationship("Location", backref="plans")
-    events = db.relationship("Event",
-                             secondary="plan_events",
-                             backref="plans")
+    user = db.relationship("User", backref="plans")   
  
 
-class PlanEvent(db.Model):
-    """Events in a specific plan."""
+class Image(db.Model):
+    """An image."""
 
-    __tablename__ = "plan_events" 
+    __tablename__ = "images" 
 
-    plan_event_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    image_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    image_location = db.Column(db.String)
     plan_id = db.Column(db.Integer,
-                        db.ForeignKey('plans.plan_id'),
-                        nullable=False)
-    event_id = db.Column(db.Integer,
-                         db.ForeignKey('events.event_id'),
-                         nullable=False)
+                        db.ForeignKey("plans.plan_id"))
+
+    plan = db.relationship("Plan", backref="images")                                           
 
 
 class Event(db.Model):
@@ -81,9 +81,14 @@ class Event(db.Model):
                             nullable=False)
     overview = db.Column(db.String(100))
     datetime = db.Column(db.DateTime)
-    theme_id = db.Column(db.String, 
-                         db.ForeignKey("themes.theme_id"),
-                         nullable=False)
+    themes = db.relationship("Theme", 
+                            secondary= "event_themes",
+                            backref="events")
+
+    plan_id = db.Column(db.Integer,
+                        db.ForeignKey("plans.plan_id"))
+
+    plan = db.relationship("Plan", backref="events")                            
     
 
 class EventTheme(db.Model):
@@ -107,27 +112,23 @@ class Theme(db.Model):
 
     theme_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     tag = db.Column(db.String(20), nullable=False)
-    overview = db.Column(db.String(100))     
+    overview = db.Column(db.String(100))  
 
 
 
-def connect_to_db(app, db_uri="postgresql:///plans"):
+def connect_to_db(app, db_uri="postgresql:///project"):
+    """Connect to database."""
+
     app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
+    db.create_all()
 
-
-def example_data():
-    """Create example data for the test database."""
-    #writes a function that creates a game and adds it to the database.
-    user = User(user_id=user_id, email=email, username=username, password=password)
-
-    db.session.add(user)
-    db.session.commit()
 
 
 if __name__ == '__main__':
-    from home import app
+    from server import app
 
     connect_to_db(app)
     print("Connected to DB.")

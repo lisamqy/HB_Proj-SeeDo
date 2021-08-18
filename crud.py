@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, User, Location, Plan, PlanEvent, Event, EventTheme, Theme, connect_to_db
+from model import db, User, Location, Plan, Image, Event, Theme, connect_to_db
 
 
 def create_user(email, password):
@@ -25,7 +25,8 @@ def create_location(zipcode, cityname, countryname):
     return location
 
 
-def create_event()
+def create_event():
+    pass
 
 
 if __name__ == '__main__':

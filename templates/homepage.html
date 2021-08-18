@@ -1,9 +1,11 @@
-{% extends 'base.html' %}
+{% extends 'index.html' %}
 
-{% block title %}Welcome to Lisa's App!{% endblock %}
+{% block title %}Lisa's Homepage!{% endblock %}
 
 {% block content %}
 
-<h1>In progress...</h1>
+<h1>Hello {{ session["current_user"].title() }}!!</h1>
+
+<h3>Site under contruction 😔...</h3>
 
 {% endblock %}
