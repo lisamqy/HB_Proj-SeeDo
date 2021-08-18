@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block title %}Welcome to Lisa's App!{% endblock %}
+
+{% block content %}
+
+<h1>Welcome {{ session["current_user"].title() }}✨</h1>
+
+<form action="/handle-login" method="POST">
+    <label>Username:</label>
+    <input type="text" name="username">
+  
+    <label>Password:</label>
+    <input type="text" name="password">
+  
+    <input type="submit">
+  </form>
+
+{% endblock %}
