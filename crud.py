@@ -14,10 +14,10 @@ def create_user(email, password):
     return user
 
 
-def create_location(zipcode, cityname, countryname,plan_id=None):
+def create_location(zipcode, cityname, countryname):
     """Create and return a new location."""
 
-    location = Location(zipcode=zipcode, cityname=cityname, countryname=countryname, plan_id=plan_id)
+    location = Location(zipcode=zipcode, cityname=cityname, countryname=countryname)
 
     db.session.add(location)
     db.session.commit()
@@ -25,10 +25,10 @@ def create_location(zipcode, cityname, countryname,plan_id=None):
     return location
 
 
-def create_plan(user_id=None):
+def create_plan(user_id=None,location_id=None):
     """Create and return a new plan."""
 
-    plan = Plan(user_id=user_id)
+    plan = Plan(user_id=user_id,location_id=location_id)
 
     db.session.add(plan)
     db.session.commit()
@@ -36,21 +36,21 @@ def create_plan(user_id=None):
     return plan  
 
 
-def create_image(image_location=None, plan_id=None):
+def create_image(image_location=None, event_id=None):
     """Create and return a new image."""
 
-    image = Image(image_location=image_location, plan_id=plan_id)
+    image = Image(image_location=image_location, event_id=event_id)
 
     db.session.add(image)
     db.session.commit()
 
-    return plan      
+    return image      
 
 
-def create_event(location_id, overview=None, datetime=None, plan_id=None):
+def create_event(location_id, overview=None, datetime=None):
     """Create and return a new event."""
 
-    event = Event(location_id=location_id, overview=overview, datetime=datetime, plan_id=plan_id)
+    event = Event(location_id=location_id, overview=overview, datetime=datetime)
 
     db.session.add(event)
     db.session.commit()

@@ -2,3 +2,5 @@ env
 __pycache__
 HW4.txt
 .DS_Store
+*.sh
+data-model.png

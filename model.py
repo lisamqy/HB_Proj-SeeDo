@@ -12,6 +12,8 @@ class User(db.Model):
     email = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(16), nullable=False)
     
+    plans = db.relationship("Plan", backref="users") 
+    # EX: user1.plans to get all plans related to user1; plan1.user to find user who created plan1
 
     def __repr__(self):
         """Show user's id and email."""
@@ -27,10 +29,9 @@ class Location(db.Model):
     zipcode = db.Column(db.Integer)
     cityname = db.Column(db.String(20),nullable=False)
     countryname = db.Column(db.String(20))
-    plan_id = db.Column(db.Integer,
-                        db.ForeignKey("plans.plan_id"))
 
-    plan = db.relationship("Plan", backref="locations")
+    events = db.relationship("Event", backref="locations") 
+    # EX: loc1.events to get all events related to loc1, event1.location to find location details
 
     def __repr__(self):
         """Show location details."""
@@ -43,32 +44,35 @@ class Plan(db.Model):
     __tablename__ = "plans"
 
     plan_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    # location_id = db.Column(db.Integer,
-    #                         db.ForeignKey("locations.location_id"),
-    #                         nullable=False)
-    # event_id = db.Column(db.Integer,
-    #                      db.ForeignKey("events.event_id"),
-    #                      nullable=False)
-    # image_id = db.Column(db.Integer,
-    #                      db.ForeignKey("images.image_id"))   
     user_id = db.Column(db.Integer,
-                        db.ForeignKey("users.user_id"))
+                        db.ForeignKey("users.user_id"),
+                        nullable=False)
+    location_id = db.Column(db.Integer,
+                            db.ForeignKey("locations.location_id"),
+                            nullable=False)   
 
-    user = db.relationship("User", backref="plans")   
- 
+    events = db.relationship("Events",
+                             secondary="planevent",
+                             backref="plans")                                                 
+    
+    def __repr__(self):
+        """Show plan details."""
+        return f"<Plan plan_id={self.plan_id} user_id={self.user_id} location={self.location_id}>"                                            
 
-class Image(db.Model):
-    """An image."""
 
-    __tablename__ = "images" 
+class PlanEvent(db.Model):
+    """An association for Plan and Event"""
 
-    image_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    image_location = db.Column(db.String)
+    __tablename__ = "planevent"
+
+    planevent_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     plan_id = db.Column(db.Integer,
-                        db.ForeignKey("plans.plan_id"))
-
-    plan = db.relationship("Plan", backref="images")                                           
-
+                        db.ForeignKey("plans.plan_id"),
+                        nullable=False)
+    event_id = db.Column(db.Integer,
+                            db.ForeignKey("events.event_id"),
+                            nullable=False)
+    
 
 class Event(db.Model):
     """An Event."""
@@ -79,22 +83,25 @@ class Event(db.Model):
     location_id = db.Column(db.Integer,
                             db.ForeignKey("locations.location_id"),
                             nullable=False)
-    overview = db.Column(db.String(100))
+    overview = db.Column(db.String(100), nullable=False)
     datetime = db.Column(db.DateTime)
-    themes = db.relationship("Theme", 
-                            secondary= "event_themes",
-                            backref="events")
 
-    plan_id = db.Column(db.Integer,
-                        db.ForeignKey("plans.plan_id"))
+    images = db.relationship("Image", backref="events") 
+    # EX: event1.images to get all images related to event1, img1.event to find which event img from
 
-    plan = db.relationship("Plan", backref="events")                            
+    themes = db.relationship("Theme",
+                             secondary="eventthemes",
+                             backref="events")
+
+    def __repr__(self):
+        """Show event details."""
+        return f"<Event event_id={self.event_id} overview={self.overview}"                          
     
 
 class EventTheme(db.Model):
     """Theme of a specific event."""
 
-    __tablename__ = "event_themes" 
+    __tablename__ = "eventthemes" 
 
     event_theme_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     event_id = db.Column(db.Integer,
@@ -114,6 +121,20 @@ class Theme(db.Model):
     tag = db.Column(db.String(20), nullable=False)
     overview = db.Column(db.String(100))  
 
+    def __repr__(self):
+        """Show theme details."""
+        return f"<Theme theme_id={self.theme_id} tag={self.tag}>"
+
+ 
+class Image(db.Model):
+    """An image."""
+
+    __tablename__ = "images" 
+
+    image_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    image_location = db.Column(db.String)
+    event_id = db.Column(db.Integer,
+                        db.ForeignKey("events.event_id"))
 
 
 def connect_to_db(app, db_uri="postgresql:///project"):
@@ -123,7 +144,6 @@ def connect_to_db(app, db_uri="postgresql:///project"):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.app = app
     db.init_app(app)
-    db.create_all()
 
 
 
