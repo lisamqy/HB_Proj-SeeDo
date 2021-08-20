@@ -51,7 +51,7 @@ class Plan(db.Model):
                             db.ForeignKey("locations.location_id"),
                             nullable=False)   
 
-    events = db.relationship("Events",
+    events = db.relationship("Event",
                              secondary="planevent",
                              backref="plans")                                                 
     
@@ -118,7 +118,7 @@ class Theme(db.Model):
     __tablename__ = "themes"
 
     theme_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    tag = db.Column(db.String(20), nullable=False)
+    tag = db.Column(db.String, nullable=False, unique=True)
     overview = db.Column(db.String(100))  
 
     def __repr__(self):

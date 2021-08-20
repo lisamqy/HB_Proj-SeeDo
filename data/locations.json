@@ -1,0 +1,422 @@
+[    
+    {
+        "address": "4855 E Warner Rd, Ste B9",
+        "cityname": "Ahwatukee",
+        "zipcode": 85044
+    },
+    {
+        "address": "3101 Washington Rd",
+        "cityname": "McMurray",
+        "zipcode": 15317
+    },
+    {
+        "address": "6025 N 27th Ave, Ste 1",
+        "cityname": "Phoenix",
+        "zipcode": 85017
+    },
+    {
+        "address": "5000 Arizona Mills Cr, Ste 435",
+        "cityname": "Tempe",
+        "zipcode": 85282
+    },
+    {
+        "address": "581 Howe Ave",
+        "cityname": "Cuyahoga Falls",
+        "zipcode": 44221
+    },
+    {
+        "address": "Richterstr. 11",
+        "cityname": "Stuttgart",
+        "zipcode": 70567
+    },
+    {
+        "address": "2620 Regatta Dr, Ste 102",
+        "cityname": "Las Vegas",
+        "zipcode": 89128
+    },
+    {
+        "address": "7240 W Lake Mead Blvd, Ste 4",
+        "cityname": "Las Vegas",
+        "zipcode": 89128
+    },
+    {
+        "address": "2612 Brandt School Rd",
+        "cityname": "Wexford",
+        "zipcode": 15090
+    },
+    {
+        "address": "737 West Pike St",
+        "cityname": "Houston",
+        "zipcode": 15342
+    },
+    {
+        "address": "2414 South Gilbert Road",
+        "cityname": "Chandler",
+        "zipcode": 85286
+    },
+    {
+        "address": "107 Whitaker Str",
+        "cityname": "Homestead",
+        "zipcode": 15120
+    },
+    {
+        "address": "600 E 4th St",
+        "cityname": "Charlotte",
+        "zipcode": 28202
+    },
+    {
+        "address": "8411 W Thunderbird Rd, Unit 101",
+        "cityname": "Peoria",
+        "zipcode": 85381
+    },
+    {
+        "address": "2518 Ironwood Dr",
+        "cityname": "Sun Prairie",
+        "zipcode": 53590
+    },
+    {
+        "address": "13375 W McDowell",
+        "cityname": "Goodyear",
+        "zipcode": 85395
+    },
+    {
+        "address": "1928 S Gilbert Rd",
+        "cityname": "Mesa",
+        "zipcode": 85204
+    },
+    {
+        "address": "3400 E Sky Harbor Blvd",
+        "cityname": "Phoenix",
+        "zipcode": 85034
+    },
+    {
+        "address": "5775 S Eastern, Ste 103",
+        "cityname": "Las Vegas",
+        "zipcode": 89119
+    },
+    {
+        "address": "38295 Chestnut Ridge Rd",
+        "cityname": "Elyria",
+        "zipcode": 44035
+    },
+    {
+        "address": "2429 Hwy 160 W",
+        "cityname": "Fort Mill",
+        "zipcode": 29708
+    },
+    {
+        "address": "12614 N Cave Creek Rd, Ste 104",
+        "cityname": "Phoenix",
+        "zipcode": 85022
+    },
+    {
+        "address": "8439 Charlotte Hwy",
+        "cityname": "Fort Mill",
+        "zipcode": 29707
+    },
+    {
+        "address": "96 S Main St",
+        "cityname": "Munroe Falls",
+        "zipcode": 44308
+    },
+    {
+        "address": "3245 W Florimond Rd",
+        "cityname": "Phoenix",
+        "zipcode": 85086
+    },
+    {
+        "address": "2470 Paseo Verde Pkwy",
+        "cityname": "Henderson",
+        "zipcode": 89074
+    },
+    {
+        "address": "11812 Carolina Place Pkwy, Ste C",
+        "cityname": "Pineville",
+        "zipcode": 28134
+    },
+    {
+        "address": "15041 N Airport Dr",
+        "cityname": "Scottsdale",
+        "zipcode": 85260
+    },
+    {
+        "address": "13603 Madison Ave",
+        "cityname": "Lakewood",
+        "zipcode": 44107
+    },
+    {
+        "address": "7260 Cimarron Rd, Ste 130",
+        "cityname": "Las Vegas",
+        "zipcode": 89113
+    },
+    {
+        "address": "610 Jetton St, Ste 130",
+        "cityname": "Davidson",
+        "zipcode": 28036
+    },
+    {
+        "address": "28212 N Tatum Blvd, Ste D4",
+        "cityname": "Cave Creek",
+        "zipcode": 85331    
+    },
+    {
+        "address": "245 Lancaster Ave",
+        "cityname": "Frazer",
+        "zipcode": 19355
+    },
+    {
+        "address": "719 E Thunderbird Rd",
+        "cityname": "Phoenix",
+        "zipcode": 85022
+    },
+    {
+        "address": "777 E Thunderbird Rd, Ste 107",
+        "cityname": "Phoenix",
+        "zipcode": 85022
+    },
+    {
+        "address": "2701 University Ave, Ste H",
+        "cityname": "Madison",
+        "zipcode": 53705
+    },
+    {
+        "address": "5340 Boulder Hwy",
+        "cityname": "Las Vegas",
+        "zipcode": 89122
+    },
+    {
+        "address": "3700 W Flamingo Rd",
+        "cityname": "Las Vegas",
+        "zipcode": 89109
+    },
+    {
+        "address": "908 E 8th Ave",
+        "cityname": "Homestead",
+        "zipcode": 15120
+    },
+    {
+        "address": "6730 S Las Vegas Blvd",
+        "cityname": "Las Vegas",
+        "zipcode": 89119
+    },
+    {
+        "address": "6889 S Eastern Ave, Ste 101",
+        "cityname": "Las Vegas",
+        "zipcode": 89119
+    },
+    {
+        "address": "6587 Las Vegas Blvd S, Ste 171",
+        "cityname": "Las Vegas",
+        "zipcode": 89119
+    },
+    {
+        "address": "1225 S Church St, Ste B",
+        "cityname": "Charlotte",
+        "zipcode": 28203
+    },
+    {
+        "address": "3228 Meade Ave",
+        "cityname": "Las Vegas",
+        "zipcode": 89102
+    },
+    {
+        "address": "8125 W Sahara Ave, Ste 210",
+        "cityname": "Las Vegas",
+        "zipcode": 89117
+    },
+    {
+        "address": "4300 Meadows Ln",
+        "cityname": "Las Vegas",
+        "zipcode": 89107
+    },
+    {
+        "address": "20 W Steels Corners Rd",
+        "cityname": "Cuyahoga Falls",
+        "zipcode": 44223
+    },
+    {
+        "address": "104 43rd St",
+        "cityname": "Pittsburgh",
+        "zipcode": 15201
+    },
+    {
+        "address": "15825 W Redfield Rd",
+        "cityname": "Surprise",
+        "zipcode": 85379
+    },
+    {
+        "address": "19925 Jetton Rd, Ste 100",
+        "cityname": "Cornelius",
+        "zipcode": 28031
+    },
+    {
+        "address": "12656 Chillicothe Rd",
+        "cityname": "Chesterland",
+        "zipcode": 44026
+    },
+    {
+        "address": "602 W University Ave",
+        "cityname": "Urbana",
+        "zipcode": 61801
+    },
+    {
+        "address": "2222 E Highland Ave, Ste 300",
+        "cityname": "Phoenix",
+        "zipcode": 85016
+    },
+    {
+        "address": "1635 E Camelback Rd",
+        "cityname": "Phoenix",
+        "zipcode": 85016
+    },
+    {
+        "address": "7000 E Mayo Blvd Building 15",
+        "cityname": "Phoenix",
+        "zipcode": 85054
+    },
+    {
+        "address": "32 W Towne Mall",
+        "cityname": "Madison",
+        "zipcode": 53719
+    },
+    {
+        "address": "4032 Butler St",
+        "cityname": "Pittsburgh",
+        "zipcode": 15201
+    },
+    {
+        "address": "5217 Clairton Blvd",
+        "cityname": "Pittsburgh",
+        "zipcode": 15236
+    },
+    {
+        "address": "8540 E Independence Blvd",
+        "cityname": "Charlotte",
+        "zipcode": 28105
+    },
+    {
+        "address": "4307 W Glendale Ave",
+        "cityname": "Glendale",
+        "zipcode": 85301
+    },
+    {
+        "address": "2030 S Rural Rd",
+        "cityname": "Tempe",
+        "zipcode": 85282
+    },
+    {
+        "address": "10720 E Southern Ave",
+        "cityname": "Mesa",
+        "zipcode": 85209
+    },
+    {
+        "address": "2302 Packers Ave",
+        "cityname": "Madison",
+        "zipcode": 53704
+    },
+    {
+        "address": "3475 S Las Vegas Blvd",
+        "cityname": "Las Vegas",
+        "zipcode": 89109
+    },
+    {
+        "address": "3400 Las Vegas Blvd",
+        "cityname": "Las Vegas",
+        "zipcode": 89109
+    },
+    {
+        "address": "5110 Park Rd, Ste 2F",
+        "cityname": "Charlotte",
+        "zipcode": 28209
+    },
+    {
+        "address": "701 E Washington Ave, Ste 105",
+        "cityname": "Madison",
+        "zipcode": 53703
+    },
+    {
+        "address": "9294 Mentor Ave",
+        "cityname": "Mentor",
+        "zipcode": 44060
+    },
+    {
+        "address": "1 I-X Center Dr",
+        "cityname": "Cleveland",
+        "zipcode": 44135
+    },
+    {
+        "address": "4250 S Rainbow Blvd, Ste 1007",
+        "cityname": "Las Vegas",
+        "zipcode": 89103
+    },
+    {
+        "address": "6840 E Brown Rd",
+        "cityname": "Mesa",
+        "zipcode": 85207
+    },
+    {
+        "address": "6130 Kruse Dr",
+        "cityname": "Solon",
+        "zipcode": 44139
+    },
+    {
+        "address": "1212 N Center St",
+        "cityname": "Mesa",
+        "zipcode": 85201
+    },
+    {
+        "address": "1816 Galerea Blvd, Ste D",
+        "cityname": "Charlotte",
+        "zipcode": 28270
+    },
+    {
+        "address": "135 9th St",
+        "cityname": "Pittsburgh",
+        "zipcode": 15222
+    },
+    {
+        "address": "13637 N Tatum Blvd, Ste 8",
+        "cityname": "Phoenix",
+        "zipcode": 85032
+    },
+    {
+        "address": "308 Concord Pkwy N",
+        "cityname": "Concord",
+        "zipcode": 28027
+    },
+    {
+        "address": "8140 N Hayden Rd, Ste H115",
+        "cityname": "Scottsdale",
+        "zipcode": 85258
+    },
+    {
+        "address": "4837 N Tryon St",
+        "cityname": "Charlotte",
+        "zipcode": 28213
+    },
+    {
+        "address": "2838 The Plz",
+        "cityname": "Charlotte",
+        "zipcode": 28205
+    },
+    {
+        "address": "1710 W Horizon Ridge Pkwy, Ste 110",
+        "cityname": "Henderson",
+        "zipcode": 89012
+    },
+    {
+        "address": "1450 W Horizon Ridge Pkwy, Ste 425",
+        "cityname": "Henderson",
+        "zipcode": 89012
+    },
+    {
+        "address": "2810 North 75th Ave",
+        "cityname": "Phoenix",
+        "zipcode": 85035
+    },
+    {
+        "address": "4700 Meadows Ln",
+        "cityname": "Las Vegas",
+        "zipcode": 89107
+    }    
+]

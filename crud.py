@@ -51,6 +51,7 @@ def create_event(location_id, overview=None, datetime=None):
     """Create and return a new event."""
 
     event = Event(location_id=location_id, overview=overview, datetime=datetime)
+    # EX: >>>event5 = create_event(1,'Movie Night','2020,1,1')
 
     db.session.add(event)
     db.session.commit()

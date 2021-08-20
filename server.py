@@ -3,10 +3,12 @@ from flask import Flask, session, render_template, request, flash, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db
 import crud
+from jinja2 import StrictUndefined
 
 app = Flask(__name__)
-app.secret_key = "SECRETSECRETSECRET"
+app.secret_key = "secret"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.jinja_env.undefined = StrictUndefined
 
 @app.route("/")
 def homepage():
