@@ -46,13 +46,18 @@ def create_plan(user_id=None,location_id=None):
     return plan  
 
 def get_plans(user_id=None):
-    """Create and return a specific user's plan(s)."""
+    """Return a specific user's plan(s)."""
     """If parameter left empty, return first 7 plans"""
 
     if user_id == None:
         return Plan.query.all()[:7]
 
     return Plan.query.filter_by(user_id=user_id).all()
+
+def get_plans_by_event(plan_id):
+    """Create and return a specific plan's event(s)."""
+
+    return Plan.query.filter_by(plan_id=plan_id).one().events    
 
 
 def create_image(image_location=None, event_id=None):
@@ -70,7 +75,7 @@ def get_images(num=None):
 
     if num == None:
         return Image.query.all()  
-              
+
     return Image.query.all()[:num]
 
 

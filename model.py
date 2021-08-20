@@ -95,7 +95,7 @@ class Event(db.Model):
 
     def __repr__(self):
         """Show event details."""
-        return f"<Event event_id={self.event_id} overview={self.overview}"                          
+        return f"<Event event_id={self.event_id} overview={self.overview}>"                          
     
 
 class EventTheme(db.Model):
@@ -135,6 +135,10 @@ class Image(db.Model):
     image_location = db.Column(db.String)
     event_id = db.Column(db.Integer,
                         db.ForeignKey("events.event_id"))
+
+    def __repr__(self):
+        """Show image details."""
+        return f"<Image image_id={self.image_id} Related to event.id={self.event_id}>"                        
 
 
 def connect_to_db(app, db_uri="postgresql:///project"):
