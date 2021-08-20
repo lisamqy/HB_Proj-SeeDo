@@ -42,15 +42,25 @@ for location in location_data:
 
 # Create x events
 names = ["Amy", "Betty", "Charles", "Danny", "Ella", "Felicia", "George", "Hailey"]
-events = ["birthday party", "pool party", "backyard BBQ", "sleepover", "hikign trip", "picnic trip", "potluck"]
+events = ["birthday party", "pool party", "backyard BBQ", "sleepover", "hiking trip", "picnic trip", "potluck"]
 
+events_db = []
 for name in names:
-    location_id = randint(1,20)
+    location_id = randint(1,len(locations_db))
     x = choice(events)
     overview = f"{name}'s {x}"
     datetime=datetime.now()
 
-    event = crud.create_event(location_id,overview, datetime)
+    event = crud.create_event(location_id, overview, datetime)
+    events_db.append(event)
+
+
+# Create 10 random images tied to each event
+for num in range(10):
+    image_location = f"/static/img{randint(1,10)}"
+    event_id = randint(1,len(events_db))
+
+    image = crud.create_image(image_location, event_id)
 
 
 # Create x themes
