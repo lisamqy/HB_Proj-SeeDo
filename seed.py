@@ -74,3 +74,22 @@ for theme in theme_data:
 
     theme = crud.create_theme(tag, overview)
     themes_db.append(theme)
+
+
+# Create x plans
+plan_list = []
+for num in range(10):
+    user_id = randint(1,10)
+    location_id = randint(1,len(locations_db))
+
+    plan = crud.create_plan(user_id,location_id)
+    plan_list.append(plan)
+
+
+# Add some events into a plan
+for num in range(10):
+    plan_id = randint(1,len(plan_list))
+    event_id = randint(1,len(events_db))
+
+    planevent = crud.add_plan_events(plan_id, event_id)  
+
