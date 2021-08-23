@@ -1,0 +1,32 @@
+{% extends 'index.html' %}
+
+{% block title %}User's page{% endblock %}
+
+{% block content %}
+
+<h1>✨Plan Name✨</h1>
+
+<h3>Overview: "This plan details a trip to Amsterdam..."</h3>
+<h3>Themes: [ #example_tag_1, #example_tag_2, #example_tag_3, etc]</h3>
+
+<!-- maybe include google maps api for the exact location of destinations -->
+<p>- Location details: Amsterdam</p>
+<p>- Event details:
+    <ul>
+        <li>Explore Jordaan neighborhood</li>
+        <li>Van Gogh Museum</li>
+        <li>Ted's BakingCon</li>
+    </ul>
+</p>
+
+<div>
+    Images: [img1, img2, etc]
+</div>
+
+<br><br> 
+
+<a href="/">
+    <button>Home</button>
+</a>
+
+{% endblock %}

@@ -13,11 +13,12 @@ app.jinja_env.undefined = StrictUndefined
 @app.route("/")
 def homepage():
     """Show homepage."""
-
+    
     if session:
         return render_template("homepage.html")
 
     return render_template("login.html")
+    
 
 @app.route("/handle-login", methods=["POST"])
 def handle_login():
@@ -29,28 +30,32 @@ def handle_login():
     if password == "123":
         session["current_user"] = username
         flash(f'Logged in as {username}') 
-        return render_template("homepage.html")
+        return redirect("/")
     else:
-        flash("Wrong password!")
-        return redirect("/login")
+        flash("Password incorrect, please try again.")
+        return render_template("login.html")
 
 
-# @app.route("/rsvp", methods=['POST'])
-# def rsvp():
-#     """Register for the party."""
+@app.route("/new") 
+def new_user():
+    """Creates a new user for application"""
 
-#     name = request.form.get("name")
-#     email = request.form.get("email")
-
-#     session['RSVP'] = True
-#     flash("Yay!")
-#     return redirect("/")
+    return render_template("register.html")
 
 
-# @app.route("/games")
-# def games():
-#     games = Game.query.all()
-#     return render_template("games.html", games=games)
+@app.route("/user")
+def user_page():
+    """Show user's account details"""
+
+    return render_template("accountdetails.html")
+
+@app.route("/plan")    
+def plan_page():
+    """Show a specific plan's details"""
+
+    return render_template("plandetails.html")
+
+
 
 
 if __name__ == "__main__":

@@ -4,16 +4,23 @@
 
 {% block content %}
 
-<h1>Welcome {{ session["current_user"].title() }}✨</h1>
-
-<form action="/handle-login" method="POST">
-    <label>Username:</label>
-    <input type="text" name="username">
-  
-    <label>Password:</label>
-    <input type="text" name="password">
-  
-    <input type="submit">
+<h1>Welcome !</h1>
+<div>
+  <form action="/handle-login" method="POST">
+      <label>Username:</label><br>
+      <input type="text" name="username"><br>
+      <label>Password:</label><br>
+      <input type="text" name="password"><br>
+      <input type="submit" value="Login"><br><br>
   </form>
+</div>
+
+<div>
+  <form action="/new">
+    <label>New User?</label>
+    <input type="submit" value="Register">
+  </form>
+</div>
+
 
 {% endblock %}
