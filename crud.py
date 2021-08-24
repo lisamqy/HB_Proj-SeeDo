@@ -3,10 +3,10 @@
 from model import db, User, Location, Plan, Image, Event, Theme, PlanEvent, connect_to_db
 
 
-def create_user(email, password):
+def create_user(username, email, password):
     """Create and return a new user."""
 
-    user = User(email=email, password=password)
+    user = User(username=username, email=email, password=password)
 
     db.session.add(user)
     db.session.commit()
@@ -17,6 +17,11 @@ def get_users():
     """Get all users from database."""    
 
     return User.query.all()
+
+def get_user_by_email(email):
+    """Get a user by their email from database."""  
+
+    return User.query.filter(User.email==email).first()
 
 
 def create_location(zipcode, cityname, countryname):

@@ -6,16 +6,19 @@
 
 <h1>Register Here!</h1>
 <div>
-  <form action="/" method="POST">
-    <label>Name:</label><br>
-    <input type="text" name="name"><br>
+  <form action="/new" method="POST">
     <label>Username:</label><br>
     <input type="text" name="username"><br>
+    <label>Email:</label><br>
+    <input type="text" name="email"><br>
     <label>Password:</label><br>
     <input type="text" name="password"><br><br>
     <input type="submit" value="Submit"><br><br>
   </form>
 </div>
+
+<a href="/">Cancel</a>
+
 
 
 {% endblock %}

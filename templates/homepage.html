@@ -4,17 +4,15 @@
 
 {% block content %}
 
-<h3>Login Successful</h3>
-<h3>Welcome to your homepage, {{ session["current_user"] }}</h3>
+<h3>Welcome to your homepage, {{ session["current_user"].title() }}</h3>
 
 <h2>Navigation</h2>
 <ul>
   <li><a href="/user">View your account details</a></li>
 </ul>
 
-<form action="/">
-    <button type="submit">Home</button>
-</form>
+<a href="/goodbye"><button>Logout</button></a>
+
 
 
 {% endblock %}

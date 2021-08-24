@@ -14,7 +14,7 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
     """Show homepage."""
     
-    if session:
+    if "current_user" in session:
         return render_template("homepage.html")
 
     return render_template("login.html")
@@ -24,16 +24,24 @@ def homepage():
 def handle_login():
     """Log user into application"""   
 
-    username = request.form["username"]
+    email = request.form["email"]
     password = request.form["password"]    
+    user = crud.get_user_by_email(email)
 
-    if password == "123":
-        session["current_user"] = username
-        flash(f'Logged in as {username}') 
+    if user and password == user.password: #TODO check against database
+        session["current_user"] = user.username
+        flash(f'Logged in as {user.username}') 
         return redirect("/")
     else:
         flash("Password incorrect, please try again.")
         return render_template("login.html")
+
+@app.route("/goodbye")   
+def logout():
+    """Clear the session and return to homepage"""
+
+    session.clear()
+    return redirect("/")
 
 
 @app.route("/new") 
@@ -42,6 +50,16 @@ def new_user():
 
     return render_template("register.html")
 
+@app.route("/new", methods=["POST"]) 
+def create_user():
+    """Creates a new user for application"""
+
+    username = request.form["username"]
+    email = request.form["email"]
+    password = request.form["password"] 
+    crud.create_user(username, email, password)
+
+    return redirect("/")
 
 @app.route("/user")
 def user_page():
@@ -53,7 +71,9 @@ def user_page():
 def plan_page():
     """Show a specific plan's details"""
 
-    return render_template("plandetails.html")
+    events = crud.get_events()
+
+    return render_template("plandetails.html", events=events)
 
 
 

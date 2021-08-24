@@ -17,10 +17,11 @@ model.db.create_all()
 
 # Create 10 users
 for num in range(10):
+    username = f"user{num}"
     email = f"user{num}@email.com"
     password = "123"
 
-    user = crud.create_user(email,password)
+    user = crud.create_user(username,email,password)
 
 
 # Load location data from JSON file
