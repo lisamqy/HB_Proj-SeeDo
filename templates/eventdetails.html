@@ -4,23 +4,27 @@
 
 {% block content %}
 
-<h1>✨Plan Name✨</h1>
+<h1>✨Event Name✨</h1>
 
 <h3>
-    <!-- TODO: make this a textarea so user can customize their own description for plan -->
     Overview: "This plan details a trip to Amsterdam..."
+    <br>
+    <!-- TODO: add in a search bar so user can search between the themes in our db -->
+    Themes: [ #example_tag_1, #example_tag_2, #example_tag_3, etc] 
 </h3>
 
 <!-- maybe include google maps api for the exact location of destinations -->
 <p>- Location details: Amsterdam</p>
 <p>- Event details:
-    <ol id="event-list">
+    <!-- <ol>
         {% for event in events %}
             <li>
                 {{ event.overview }}
             </li>
         {% endfor %}
-    </ol>
+    </ol> -->
+    <ul id="event-list">
+    </ul>
 
 </p>
 
@@ -29,6 +33,11 @@
 
 <br><br>
 
+<div>
+    Images: [img1, img2, etc]
+</div>
+
+<br><br> 
 
 <a href="/">
     <button>Home</button>

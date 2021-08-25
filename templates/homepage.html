@@ -4,14 +4,45 @@
 
 {% block content %}
 
-<h3>Welcome to your homepage, {{ session["current_user"].title() }}</h3>
+<h1>Hello</h1>
 
-<h2>Navigation</h2>
-<ul>
-  <li><a href="/user">View your account details</a></li>
-</ul>
+<div>
+    {% if "current_user" not in session %}
+        <form action="/handle-login" method="POST">
+            <label>Email:</label>
+            <input type="text" name="email">
+            <label>Password:</label>
+            <input type="text" name="password">
+            <input type="submit" value="Login">
+        </form>  
 
-<a href="/goodbye"><button>Logout</button></a>
+        <form class="login-user" action="/new">
+        <label>New User?</label>
+        <input type="submit" value="Register">
+        </form>
+    {% endif %}
+    {% if "current_user" in session %}
+        <h3>
+            Welcome, {{ session['current_user'] }} 
+            <a href="/goodbye"><button>Logout</button></a>
+        </h3>
+        <h3>Navigation</h3>
+        <ul>
+            <li><a href="/user{{ user.user_id }}">View your account details</a></li>
+        </ul>
+    {% endif %}
+</div>
+
+<hr class="div-line"></hr>
+
+<div id="home-events-section">
+    {% for event in events %}
+        <div id="event-overview">
+            {{ event.overview }}
+            <button id="event-box-adder">Add to plan</button> 
+        </div>
+    {% endfor %}     
+</div>
 
 
 

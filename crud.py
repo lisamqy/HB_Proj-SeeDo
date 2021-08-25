@@ -15,8 +15,13 @@ def create_user(username, email, password):
 
 def get_users():
     """Get all users from database."""    
-
+    
     return User.query.all()
+
+def get_user_by_id(num):   
+    """Get all users from database."""    
+    
+    return User.query.filter_by(user_id=num).one()
 
 def get_user_by_email(email):
     """Get a user by their email from database."""  
@@ -40,22 +45,22 @@ def get_locations():
     return Location.query.all()   
 
 
-def create_plan(user_id=None,location_id=None):
+def create_plan(user_id=None,location_id=None,overview=None):
     """Create and return a new plan."""
 
-    plan = Plan(user_id=user_id,location_id=location_id)
+    plan = Plan(user_id=user_id,location_id=location_id,overview=overview)
 
     db.session.add(plan)
     db.session.commit()
 
     return plan  
 
-def get_plans(user_id=None):
+def get_plans(user_id):
     """Return a specific user's plan(s)."""
-    """If parameter left empty, return first 7 plans"""
+    """If parameter left empty, return first 5 plans"""
 
-    if user_id == None:
-        return Plan.query.all()[:7]
+    # if user_id == None:
+    #     return Plan.query.all()[:5]
 
     return Plan.query.filter_by(user_id=user_id).all()
 
@@ -95,10 +100,13 @@ def create_event(location_id, overview=None, datetime=None):
 
     return event
 
-def get_events():
-    """Get all events and their overview from database."""    
+def get_events(num=None):
+    """Get a specific number of events and their overview from database."""    
 
-    return Event.query.all()      
+    if num == None:
+        return Event.query.all() 
+
+    return Event.query.all()[:num]
 
 
 def create_theme(tag=None, overview=None):

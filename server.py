@@ -13,11 +13,12 @@ app.jinja_env.undefined = StrictUndefined
 @app.route("/")
 def homepage():
     """Show homepage."""
-    
-    if "current_user" in session:
-        return render_template("homepage.html")
 
-    return render_template("login.html")
+    # plans = crud.get_plans()
+    user = crud.get_user_by_id(3)
+    events = crud.get_events(10)
+
+    return render_template("homepage.html", user=user, events=events) #get first 10 plans from db
     
 
 @app.route("/handle-login", methods=["POST"])
@@ -26,15 +27,15 @@ def handle_login():
 
     email = request.form["email"]
     password = request.form["password"]    
-    user = crud.get_user_by_email(email)
+    user = crud.get_user_by_email(email) #communicates with db to create new user
 
-    if user and password == user.password: #TODO check against database
+    if user and password == user.password: #checks against database
         session["current_user"] = user.username
         flash(f'Logged in as {user.username}') 
         return redirect("/")
     else:
         flash("Password incorrect, please try again.")
-        return render_template("login.html")
+        return render_template("homepage.html")
 
 @app.route("/goodbye")   
 def logout():
@@ -61,21 +62,29 @@ def create_user():
 
     return redirect("/")
 
-@app.route("/user")
-def user_page():
+@app.route("/user<user_id>")
+def user_page(user_id):
     """Show user's account details"""
 
-    return render_template("accountdetails.html")
+    plans = crud.get_plans(user_id)
+
+    return render_template("accountdetails.html", plans=plans)
 
 @app.route("/plan")    
 def plan_page():
     """Show a specific plan's details"""
 
-    events = crud.get_events()
+    events = crud.get_events(5)
 
     return render_template("plandetails.html", events=events)
 
+@app.route("/event")
+def event_page():
+    """Show an event's details"""
 
+    events = crud.get_events(5)
+
+    return render_template("plandetails.html", events=events)
 
 
 if __name__ == "__main__":

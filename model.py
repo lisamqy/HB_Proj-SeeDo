@@ -50,7 +50,8 @@ class Plan(db.Model):
                         nullable=False)
     location_id = db.Column(db.Integer,
                             db.ForeignKey("locations.location_id"),
-                            nullable=False)   
+                            nullable=False)  
+    overview = db.Column(db.String(100))                            
 
     events = db.relationship("Event",
                              secondary="planevent",

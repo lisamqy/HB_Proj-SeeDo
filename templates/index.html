@@ -4,14 +4,21 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>{% block title %}TITLE HERE{% endblock %}</title>
+
+    <script 
+        src="https://code.jquery.com/jquery-3.6.0.js" 
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
+        crossorigin="anonymous"
+    ></script>
 
     <link rel="stylesheet" href="/static/css/styles.css">
 
 </head>
     
 <body>
+
+    <!-- Flash Messages -->
     {% with messages = get_flashed_messages() %}
         {% if messages %}
                 {% for message in messages %}
@@ -20,7 +27,10 @@
         {% endif %}
     {% endwith %}
     
+    <!-- Custom .html files -->
     {% block content %}CONTENT HERE{% endblock %}
+
+    <script src="/static/js/ajax.js"></script>
 
 </body>
 </html>

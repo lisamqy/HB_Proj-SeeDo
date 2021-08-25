@@ -4,25 +4,20 @@
 
 {% block content %}
 
-<h1>
+<h1 class="header">
     ✨Account details page✨
 </h1>
 
 <div>
     <h3>Created plans list</h3>
-    <a href="/plan">
-        <button>plan #124</button>
-        <button>plan #125</button>
-        <button>plan #126</button>
-    </a>
+        {% for plan in plans %}
+            {{ plan }}
+        {% endfor %}
 </div>
 <div>
-    <h3>Liked/saved plans list</h3>
-    <a href="/">
-        <button>plan #114</button>
-        <button>plan #115</button>
-        <button>plan #116</button>
-    </a>
+    <h3>Liked/saved events list</h3>
+        💖<ul></ul>
+        🔖<ul></ul>
 </div>
 
 {% endblock %}
