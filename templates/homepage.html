@@ -23,12 +23,12 @@
     {% endif %}
     {% if "current_user" in session %}
         <h3>
-            Welcome, {{ session['current_user'] }} 
+            Welcome, {{ user.username.title() }} 
             <a href="/goodbye"><button>Logout</button></a>
         </h3>
         <h3>Navigation</h3>
         <ul>
-            <li><a href="/user{{ user.user_id }}">View your account details</a></li>
+            <li><a href="/user/{{ user.user_id }}">View your account details</a></li>
         </ul>
     {% endif %}
 </div>

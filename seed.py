@@ -16,7 +16,7 @@ model.connect_to_db(server.app)
 model.db.create_all()
 
 # Create 10 users
-for num in range(10):
+for num in range(1,10):
     username = f"user{num}"
     email = f"user{num}@email.com"
     password = "123"

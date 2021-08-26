@@ -39,10 +39,13 @@ def create_location(zipcode, cityname, countryname):
 
     return location
 
-def get_locations():
-    """Get all location and details from database."""    
+def get_location_by_id(location_id):
+    """Get location and details by it's id from database."""    
 
-    return Location.query.all()   
+    zip = Location.query.filter_by(location_id=location_id).one().zipcode
+    city = Location.query.filter_by(location_id=location_id).one().cityname
+
+    return f'City: {city} || Zipcode: {zip}'
 
 
 def create_plan(user_id=None,location_id=None,overview=None):
@@ -57,18 +60,23 @@ def create_plan(user_id=None,location_id=None,overview=None):
 
 def get_plans(user_id):
     """Return a specific user's plan(s)."""
-    """If parameter left empty, return first 5 plans"""
-
-    # if user_id == None:
-    #     return Plan.query.all()[:5]
 
     return Plan.query.filter_by(user_id=user_id).all()
 
-def get_plans_by_event(plan_id):
-    """Create and return a specific plan's event(s)."""
+def get_events_associated_with_plan(plan_id):
+    """Return a specific plan's event(s)."""
 
     return Plan.query.filter_by(plan_id=plan_id).one().events    
 
+def get_plan_by_planid(plan_id):
+    """Return plan associated with a plan id."""
+
+    return Plan.query.filter_by(plan_id=plan_id).one()
+
+def get_location_by_planid(plan_id):
+    """Return location associated with a plan id."""
+
+    return Plan.query.filter_by(plan_id=plan_id).one().location_id
 
 def create_image(image_location=None, event_id=None):
     """Create and return a new image."""

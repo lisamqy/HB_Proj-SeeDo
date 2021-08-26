@@ -8,14 +8,18 @@
     ✨Account details page✨
 </h1>
 
+<a href="/"><button>Take me 🏠</button></a>
+
 <div>
     <h3>Created plans list</h3>
         {% for plan in plans %}
-            {{ plan }}
+            <ol class="inline-button">
+                <a href="/plan/{{ plan.plan_id }}"><button>Plan id#{{ plan.plan_id }}</button></a>
+            </ol>
         {% endfor %}
 </div>
 <div>
-    <h3>Liked/saved events list</h3>
+    <h3>Liked/saved plan list</h3>
         💖<ul></ul>
         🔖<ul></ul>
 </div>

@@ -9,3 +9,8 @@ body {
 .div-line {
     color: white;
 }
+
+.inline-button {
+    padding: 0%;
+    display: inline;
+}
