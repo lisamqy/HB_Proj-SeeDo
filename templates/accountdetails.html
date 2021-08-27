@@ -1,11 +1,11 @@
 {% extends 'index.html' %}
 
-{% block title %}User's page{% endblock %}
+{% block title %}Account{% endblock %}
 
 {% block content %}
 
 <h1 class="header">
-    ✨Account details page✨
+    ✨Account Details✨
 </h1>
 
 <a href="/"><button>Take me 🏠</button></a>
@@ -17,10 +17,14 @@
                 <a href="/plan/{{ plan.plan_id }}"><button>Plan id#{{ plan.plan_id }}</button></a>
             </ol>
         {% endfor %}
+        <br><br>
+        <form action="/user/{{ user.user_id }}" method="POST">
+            <input type="text" name="location_id" placeholder="location_id for new plan">
+            <input type="submit" value="+">
+        </form>
 </div>
 <div>
-    <h3>Liked/saved plan list</h3>
-        💖<ul></ul>
+    <h3>Bookmarked event list</h3>
         🔖<ul></ul>
 </div>
 

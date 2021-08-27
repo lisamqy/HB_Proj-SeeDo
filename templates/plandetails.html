@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 
-{% block title %}User's page{% endblock %}
+{% block title %}My Plan{% endblock %}
 
 {% block content %}
 
@@ -32,7 +32,7 @@
 <form action="/plan/{{ plan.plan_id }}" method="POST">
     <select name="dropdown-event" id="dropdown-event">
         {% for item in db_events %}
-            {% if item != events %} 
+            {% if item not in events %} 
                 <option value="{{ item.event_id }}">{{ item.overview }}</option>
             {% endif %}    
         {% endfor %}
@@ -43,10 +43,11 @@
 <hr class="div-line">
 
 <div>
-    <form action="/">
-        <input type="button" value="Home🏠">
-    </form>
-    <form>
+    <a href="/">
+        <button>Home🏠</button>
+    </a>
+    <!-- FIXME take user back to previous page and not previous click-->
+    <form> 
         <input type="button" value="Go back!" onclick="history.back()">
     </form>
 </div>

@@ -74,10 +74,21 @@ def create_user():
 def user_page(user_id):
     """Show user's account details"""
 
+    user = crud.get_user_by_id(user_id)
     plans = crud.get_plans(user_id)
 
-    return render_template("accountdetails.html", plans=plans)
+    return render_template("accountdetails.html", user=user, plans=plans)
 
+
+@app.route("/user/<user_id>", methods=["POST"])
+def add_plan(user_id):
+    """Show user's account details"""
+
+    location_id = request.form.get("location_id")
+    crud.create_plan(user_id=user_id,location_id=location_id,overview=None)
+
+    return redirect(f"/user/{user_id}")
+    
 
 @app.route("/plan/<plan_id>")    
 def plan_page(plan_id):

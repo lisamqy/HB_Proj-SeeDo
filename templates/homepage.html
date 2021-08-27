@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 
-{% block title %}Lisa's Homepage{% endblock %}
+{% block title %}Homepage{% endblock %}
 
 {% block content %}
 
@@ -39,7 +39,7 @@
     {% for event in events %}
         <div id="event-overview">
             {{ event.overview }}
-            <button id="event-box-adder">Add to plan</button> 
+            <a id="event-box-saver">🔖</a> 
         </div>
     {% endfor %}     
 </div>
