@@ -42,14 +42,14 @@ for location in location_data:
 
 
 # Create x events
-names = ["Amy", "Betty", "Charles", "Danny", "Ella", "Felicia", "George", "Hailey"]
-events = ["birthday party", "pool party", "backyard BBQ", "sleepover", "hiking trip", "picnic trip", "potluck"]
+names = ["Amy", "Betty", "Charles", "Danny", "Ella", "Felicia", "George", "Hailey", "Ivan", "Joyce", "Kathy", "Lana", "Manuel", "Nate", "Oberyn", "Penny", "Quinn", "Rue", "Steven", "Ted", "Uriel"]
+events = ["birthday party", "pool party", "backyard BBQ", "sleepover", "hiking trip", "picnic trip", "potluck", "virtual game night", "online workout", "magic show", "paint night", "cookathon", "puppet show", "casino night", "art exhibit", "speed dating event", "fireworks show", "scavenger hunt", "karaoke night"]
 
 events_db = []
 for name in names:
     location_id = randint(1,len(locations_db))
     x = choice(events)
-    overview = f"{name}'s {x}"
+    overview = f"{name}'s {x.title()}"
     datetime=datetime.now()
 
     event = crud.create_event(location_id, overview, datetime)
