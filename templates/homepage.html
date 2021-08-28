@@ -10,9 +10,9 @@
     {% if "current_user" not in session %}
         <form action="/handle-login" method="POST">
             <label>Email:</label>
-            <input type="text" name="email">
+            <input type="text" name="email" required>
             <label>Password:</label>
-            <input type="text" name="password">
+            <input type="text" name="password" required>
             <input type="submit" value="Login">
         </form>  
 
@@ -39,7 +39,7 @@
     {% for event in events %}
         <div id="event-overview">
             <a href="/event/{{ event.event_id }}">{{ event.overview }}</a>
-            <a id="event-box-saver">🔖</a> 
+            <button id="event-box-liker">♥️</button> 
         </div>
     {% endfor %}     
 </div>

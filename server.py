@@ -22,7 +22,7 @@ def homepage():
         user = crud.get_user_by_id(session["current_user"])
     else: 
         user = None
-    events = crud.get_events(10)
+    events = sample(crud.get_events(),10)
 
     return render_template("homepage.html", user=user, events=events) 
     

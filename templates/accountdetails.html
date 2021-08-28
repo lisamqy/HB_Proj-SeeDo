@@ -19,13 +19,13 @@
         {% endfor %}
         <br><br>
         <form action="/user/{{ user.user_id }}" method="POST">
-            <input type="text" name="location_id" placeholder="location_id for new plan">
+            <input type="text" name="location_id" placeholder="location_id for new plan" required>
             <input type="submit" value="+">
         </form>
 </div>
 <div>
-    <h3>Bookmarked event list</h3>
-        🔖<ul></ul>
+    <h3>Liked event list</h3>
+        💖 <ul></ul>
 </div>
 
 {% endblock %}
