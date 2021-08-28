@@ -45,7 +45,7 @@ def get_location_by_id(location_id):
     zip = Location.query.filter_by(location_id=location_id).one().zipcode
     city = Location.query.filter_by(location_id=location_id).one().cityname
 
-    return f'City: {city} || Zipcode: {zip}'
+    return [city,zip]
 
 
 def create_plan(user_id=None,location_id=None,overview=None):
@@ -116,6 +116,11 @@ def get_events(num=None):
 
     return Event.query.all()[:num]
 
+def get_event_by_id(event_id):
+    """Show a specific event's details"""
+
+    return Event.query.filter_by(event_id=event_id).one()
+
 
 def create_theme(tag=None, overview=None):
     """Create and return a new theme."""
@@ -127,6 +132,10 @@ def create_theme(tag=None, overview=None):
 
     return theme     
 
+def get_theme(): #TODO: change this to get only the event's themes; add eventtheme to seed.py
+    """get some random themes"""
+
+    return Theme.query.all()
 
 def add_plan_events(plan_id, event_id):
     """Add event(s) to an existing plan"""

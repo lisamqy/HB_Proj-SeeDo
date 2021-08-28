@@ -11,7 +11,7 @@
     Overview: {{ plan.overview }}
 </h3>
 
-<p>- {{ location }}</p>
+<p>- Location: {{ location[0] }}</p>
 <p>- Event details:
     <ol id="event-list">
         {% for event in events %}
@@ -32,7 +32,7 @@
 <form action="/plan/{{ plan.plan_id }}" method="POST">
     <select name="dropdown-event" id="dropdown-event">
         {% for item in db_events %}
-            {% if item not in events %} 
+            {% if item not in events %} <!--checks only for events not already on plan list-->
                 <option value="{{ item.event_id }}">{{ item.overview }}</option>
             {% endif %}    
         {% endfor %}

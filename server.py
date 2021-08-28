@@ -4,6 +4,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db
 import crud
 from jinja2 import StrictUndefined
+from random import sample
 
 app = Flask(__name__)
 app.secret_key = 'secret'
@@ -94,7 +95,7 @@ def add_plan(user_id):
 def plan_page(plan_id):
     """Show a specific plan's details"""
 
-    db_events = crud.get_events(7) #dropdown event items
+    db_events = crud.get_events() #dropdown event items
     events = crud.get_events_associated_with_plan(plan_id) 
     plan = crud.get_plan_by_planid(plan_id)
 
@@ -109,17 +110,21 @@ def add_event(plan_id):
     """Add event to current plan"""
 
     event_id = request.form.get("dropdown-event")
-    print(event_id)
     crud.add_plan_events(plan_id=plan_id, event_id=event_id)
 
     return redirect(f"/plan/{plan_id}")
     
 
-@app.route("/event")
-def event_page():
+@app.route("/event/<event_id>")
+def event_page(event_id):
     """Show an event's details"""
 
-    return render_template("eventdetails.html")
+    event = crud.get_event_by_id(event_id)
+    location = crud.get_location_by_id(event.location_id)
+    all_theme = crud.get_theme()
+    theme = sample(all_theme,3)
+
+    return render_template("eventdetails.html", event=event, location=location, theme=theme)
 
 
 if __name__ == "__main__":

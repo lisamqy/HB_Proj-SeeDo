@@ -38,7 +38,7 @@
 <div id="home-events-section">
     {% for event in events %}
         <div id="event-overview">
-            {{ event.overview }}
+            <a href="/event/{{ event.event_id }}">{{ event.overview }}</a>
             <a id="event-box-saver">🔖</a> 
         </div>
     {% endfor %}     
