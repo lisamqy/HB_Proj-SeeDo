@@ -5,13 +5,18 @@
 {% block content %}
 
 <h1>✨Event ID#{{ event.event_id }}✨</h1>
-
 <h3>
     Overview: {{ event.overview }}
     <br>
 <!-- TODO: add in a search bar so user can search between the themes in our db -->
-    Themes: <!--{% for thm in theme %} #{{ thm.tag }} {% endfor %}--> 
+    Themes: {% for thm in theme %} #{{ thm.tag }} {% endfor %} 
 </h3>
+
+<div class="liked-response"></div>
+ <span>💖{{ event.liked }}</span>
+{% if "current_user" in session  %}
+    <button value="{{ event.event_id }}" class="like-button">give ♥️</button>
+{% endif %}  
 
 <!-- maybe include google maps api for the exact location of destinations -->
 <p>- Location details:  {{ location[0] }}, Zipcode: {{ location[1] }}</p>

@@ -29,7 +29,7 @@ class Location(db.Model):
     location_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     zipcode = db.Column(db.Integer)
     cityname = db.Column(db.String(20),nullable=False)
-    countryname = db.Column(db.String(20))
+    statename = db.Column(db.String(20))
 
     events = db.relationship("Event", backref="locations") 
     # EX: loc1.events to get all events related to loc1, event1.location to find location details
@@ -87,6 +87,7 @@ class Event(db.Model):
                             nullable=False)
     overview = db.Column(db.String(100), nullable=False)
     datetime = db.Column(db.DateTime)
+    liked = db.Column(db.Integer)
 
     images = db.relationship("Image", backref="events") 
     # EX: event1.images to get all images related to event1, img1.event to find which event img from

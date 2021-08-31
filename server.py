@@ -3,6 +3,9 @@ from flask import Flask, session, render_template, request, flash, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db
 import crud
+from pprint import pformat
+import os
+import requests
 from jinja2 import StrictUndefined
 from random import sample
 
@@ -11,7 +14,7 @@ app.secret_key = 'secret'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.jinja_env.undefined = StrictUndefined
 
-# API_KEY = os.environ['TICKETMASTER_KEY']
+API_KEY = os.environ['TICKETMASTERKEY']
 
 
 @app.route("/")
@@ -41,6 +44,19 @@ def handle_login():
         return redirect("/")
     else:
         flash("Email or password incorrect, please try again.")
+        return redirect("/")
+
+
+@app.route("/handle-likes", methods=['POST'])
+def handle_likes():
+    """Update an event's number of likes"""  
+    
+    if "current_user" in session:
+        event_id = request.form.get("eventId")
+        crud.add_like(event_id)
+        return "Success"
+    else:
+        flash("Please log in or sign up to add 💖")
         return redirect("/")
 
 
@@ -77,15 +93,16 @@ def user_page(user_id):
 
     user = crud.get_user_by_id(user_id)
     plans = crud.get_plans(user_id)
+    all_locations = crud.get_locations()
 
-    return render_template("accountdetails.html", user=user, plans=plans)
+    return render_template("accountdetails.html", user=user, plans=plans, all_locations=all_locations)
 
 
 @app.route("/user/<user_id>", methods=["POST"])
 def add_plan(user_id):
     """Show user's account details"""
 
-    location_id = request.form.get("location_id")
+    location_id = request.form.get("citynames")
     crud.create_plan(user_id=user_id,location_id=location_id,overview=None)
 
     return redirect(f"/user/{user_id}")
@@ -112,7 +129,7 @@ def add_event(plan_id):
     event_id = request.form.get("dropdown-event")
     crud.add_plan_events(plan_id=plan_id, event_id=event_id)
 
-    return redirect(f"/plan/{plan_id}")
+    return redirect(f"/plan/{plan_id}")  
     
 
 @app.route("/event/<event_id>")
@@ -125,6 +142,31 @@ def event_page(event_id):
     theme = sample(all_theme,3)
 
     return render_template("eventdetails.html", event=event, location=location, theme=theme)
+
+
+@app.route("/search")
+def find_events():
+    """Search for events on Ticketmaster"""
+
+    # keyword = request.args.get('keyword', '')
+    postalcode = request.args.get('zipcode', '')
+    # radius = request.args.get('radius', '')
+    # unit = request.args.get('unit', '')
+    sort = request.args.get('sort', '')
+
+    url = 'https://app.ticketmaster.com/discovery/v2/events'
+    payload = {'apikey': API_KEY,
+               'postalcode': postalcode}
+
+    response = requests.get(url, params=payload)
+
+    data = response.json()
+    events = data['_embedded']['events']
+
+    return render_template('searchresults.html',
+                           pformat=pformat,
+                           data=data,
+                           results=events)
 
 
 if __name__ == "__main__":

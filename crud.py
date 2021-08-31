@@ -29,26 +29,40 @@ def get_user_by_email(email):
     return User.query.filter(User.email==email).first()
 
 
-def create_location(zipcode, cityname, countryname):
+def add_like(event_id):
+    """Add a like to an event"""
+
+    update = Event.query.filter_by(event_id=event_id).first()
+    update.liked += 1
+    db.session.commit()
+
+
+def create_location(zipcode, cityname, statename):
     """Create and return a new location."""
 
-    location = Location(zipcode=zipcode, cityname=cityname, countryname=countryname)
+    location = Location(zipcode=zipcode, cityname=cityname, statename=statename)
 
     db.session.add(location)
     db.session.commit()
 
     return location
 
+def get_locations():
+    """Get all locations in database"""
+
+    return Location.query.all()    
+
 def get_location_by_id(location_id):
     """Get location and details by it's id from database."""    
 
-    zip = Location.query.filter_by(location_id=location_id).one().zipcode
+    zipcode = Location.query.filter_by(location_id=location_id).one().zipcode
     city = Location.query.filter_by(location_id=location_id).one().cityname
+    state = Location.query.filter_by(location_id=location_id).one().statename
 
-    return [city,zip]
+    return [city,state,zipcode]
 
 
-def create_plan(user_id=None,location_id=None,overview=None):
+def create_plan(user_id,location_id,overview=None):
     """Create and return a new plan."""
 
     plan = Plan(user_id=user_id,location_id=location_id,overview=overview)
@@ -97,10 +111,10 @@ def get_images(num=None):
     return Image.query.all()[:num]
 
 
-def create_event(location_id, overview=None, datetime=None):
+def create_event(location_id, overview=None, datetime=None, liked=None):
     """Create and return a new event."""
 
-    event = Event(location_id=location_id, overview=overview, datetime=datetime)
+    event = Event(location_id=location_id, overview=overview, datetime=datetime, liked=liked)
     # EX: >>>event5 = create_event(1,'Movie Night','2020,1,1')
 
     db.session.add(event)

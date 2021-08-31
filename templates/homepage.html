@@ -26,22 +26,31 @@
             Welcome, {{ user.username.title() }} 
             <a href="/goodbye"><button>Logout</button></a>
         </h3>
-        <h3>Navigation</h3>
-        <ul>
-            <li><a href="/user/{{ user.user_id }}">View your account details</a></li>
-        </ul>
+        <a href="/user/{{ user.user_id }}">🗓 View your account details</a>
     {% endif %}
+</div>
+<br>
+<div>
+    <form action="/search">
+        <input type="text" name="postalcode" placeholder="Search zipcode">
+        <input type="submit" value="Go" name="search-button" id="search-button">
+    </form>
 </div>
 
 <hr class="div-line"></hr>
 
 <div id="home-events-section">
+    <div class="liked-response"></div>
     {% for event in events %}
-        <div id="event-overview">
-            <a href="/event/{{ event.event_id }}">{{ event.overview }}</a>
-            <button id="event-box-liker">♥️</button> 
+        <div>
+        <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 💖 {{ event.liked }}
+        {% if "current_user" in session  %}
+            <button value="{{ event.event_id }}" class="like-button">give ♥️</button>
+        {% endif %}   
         </div>
-    {% endfor %}     
+        
+    {% endfor %}   
+
 </div>
 
 

@@ -30,19 +30,19 @@ with open("data/locations.json") as f:
 # Create locations
 locations_db = []
 for location in location_data:
-    address, cityname, zipcode = (
-        location["address"],
+    statename, cityname, zipcode = (
+        location["state"],
         location["cityname"],
         location["zipcode"]
     )
     countryname = "USA"
 
-    location = crud.create_location(zipcode, cityname, countryname)
+    location = crud.create_location(zipcode, cityname, statename)
     locations_db.append(location)
 
 
 # Create x events
-names = ["Amy", "Betty", "Charles", "Danny", "Ella", "Felicia", "George", "Hailey", "Ivan", "Joyce", "Kathy", "Lana", "Manuel", "Nate", "Oberyn", "Penny", "Quinn", "Rue", "Steven", "Ted", "Uriel"]
+names = ["Amy", "Betty", "Charles", "Danny", "Ella", "Felicia", "George", "Hailey", "Ivan", "Joyce", "Kathy", "Lana", "Manuel", "Nate", "Oberyn", "Penny", "Quinn", "Rue", "Steven", "Ted"]
 events = ["birthday party", "pool party", "backyard BBQ", "sleepover", "hiking trip", "picnic trip", "potluck", "virtual game night", "online workout", "magic show", "paint night", "cookathon", "puppet show", "casino night", "art exhibit", "speed dating event", "fireworks show", "scavenger hunt", "karaoke night"]
 
 events_db = []
@@ -50,9 +50,10 @@ for name in names:
     location_id = randint(1,len(locations_db))
     x = choice(events)
     overview = f"{name}'s {x.title()}"
-    datetime=datetime.now()
+    datetime = datetime.now()
+    liked = randint(20,100)
 
-    event = crud.create_event(location_id, overview, datetime)
+    event = crud.create_event(location_id, overview, datetime, liked)
     events_db.append(event)
 
 
