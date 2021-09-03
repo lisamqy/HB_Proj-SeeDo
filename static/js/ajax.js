@@ -21,3 +21,12 @@ $('.like-button').on('click', (evt) => {
         $('.liked-response').html("Thanks for the like!")
     })
 })
+
+$("input[name=btnEditOverview]").on('click', () => {
+    if ($("#dvEditOverview").hasClass("hide")) {
+        $("#dvEditOverview").removeClass("hide");
+    } else {
+        $("#dvEditOverview").addClass("hide")
+    }
+     
+});

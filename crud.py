@@ -30,7 +30,7 @@ def get_user_by_email(email):
 
 
 def add_like(event_id):
-    """Add a like to an event"""
+    """Add a like to an event."""
 
     update = Event.query.filter_by(event_id=event_id).first()
     update.liked += 1
@@ -48,7 +48,7 @@ def create_location(zipcode, cityname, statename):
     return location
 
 def get_locations():
-    """Get all locations in database"""
+    """Get all locations in database."""
 
     return Location.query.all()    
 
@@ -71,6 +71,20 @@ def create_plan(user_id,location_id,overview=None):
     db.session.commit()
 
     return plan  
+
+def del_plan_by_id(plan_id):
+    """Delete a plan by plan id"""
+    
+    PlanEvent.query.filter_by(plan_id=plan_id).delete()
+    Plan.query.filter_by(plan_id=plan_id).delete()
+    db.session.commit()    
+
+def edit_plan_overview(plan_id, overview):
+    """Edit a plan's overview."""
+
+    update = Plan.query.filter_by(plan_id=plan_id).one()
+    update.overview = overview
+    db.session.commit()    
 
 def get_plans(user_id):
     """Return a specific user's plan(s)."""
@@ -131,7 +145,7 @@ def get_events(num=None):
     return Event.query.all()[:num]
 
 def get_event_by_id(event_id):
-    """Show a specific event's details"""
+    """Show a specific event's details."""
 
     return Event.query.filter_by(event_id=event_id).one()
 
@@ -147,12 +161,12 @@ def create_theme(tag=None, overview=None):
     return theme     
 
 def get_theme(): #TODO: change this to get only the event's themes; add eventtheme to seed.py
-    """get some random themes"""
+    """get some random themes."""
 
     return Theme.query.all()
 
 def add_plan_events(plan_id, event_id):
-    """Add event(s) to an existing plan"""
+    """Add event(s) to an existing plan."""
 
     plan_event = PlanEvent(plan_id=plan_id, event_id=event_id)
 

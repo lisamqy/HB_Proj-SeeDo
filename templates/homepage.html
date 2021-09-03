@@ -12,7 +12,7 @@
             <label>Email:</label>
             <input type="text" name="email" required>
             <label>Password:</label>
-            <input type="text" name="password" required>
+            <input type="password" name="password" required>
             <input type="submit" value="Login">
         </form>  
 
@@ -31,9 +31,13 @@
 </div>
 <br>
 <div>
-    <form action="/search">
-        <input type="text" name="postalcode" placeholder="Search zipcode">
-        <input type="submit" value="Go" name="search-button" id="search-button">
+    <!-- <span></span> -->
+    <form class="inline-button" action="/search">
+        <input type="submit" value="Search for events" name="search-button" id="search-button">
+        
+        <input type="text" name="city" placeholder="city" required>
+        <input type="number" name="postalcode" placeholder="zipcode">
+        <input type="text" name="keyword" placeholder="keyword">
     </form>
 </div>
 

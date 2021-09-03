@@ -8,7 +8,16 @@
 
 <h3>
     <!-- TODO: make this a textarea so user can customize their own description for plan -->
-    Overview: {{ plan.overview }}
+    Overview: {{ plan.overview }} 
+    <span class="edit-plan-overview">
+        <input type="button" value="edit" name="btnEditOverview"/>
+    </span>
+    <div id="dvEditOverview" class="hide">
+        <form action="/plan/{{ plan.plan_id }}/overview" method="POST">
+            <input type="textarea" name="txtEditOverview" re>
+            <input type="submit" value="+">
+        </form>
+    </div>
 </h3>
 
 <p>- Location: {{ location[0] }}, {{ location[1] }}</p>
@@ -37,22 +46,36 @@
                     <option value="{{ item.event_id }}">{{ item.overview }}</option>
                 {% endif %}
             {% endif %}  
+            {% if not item %}
+                0 events found in current city.
+            {% endif %}
         {% endfor %}
         
     </select>
     <button id="dropdown-event-adder">Add event</button> 
 </form>
 
+<br>
+
+<!-- Delete Plan Button -->
+<div>
+    <form action="/plan/{{ plan.plan_id }}/delete" method="POST">
+        <input class="makered" type="submit" value="Delete Plan">
+    </form>
+</div>
+
 <hr class="div-line">
 
+
+<!-- Home/Back Buttons -->
 <div>
     <a href="/">
         <button>Home🏠</button>
     </a>
-    <!-- FIXME take user back to previous page and not previous click-->
-    <form> 
-        <input type="button" value="Go back!" onclick="history.back()">
-    </form>
+    <br>
+    <a href="/user/{{ plan.user_id }}">
+        <button>Go back!</button>
+    </a>
 </div>
     
 

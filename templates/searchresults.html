@@ -10,16 +10,11 @@
 
 <a href="/"><button>Take me 🏠</button></a>
 
-<p>
-    <span id="result-count">
-      {{ data['page']['totalElements'] }}
-    </span>
-    events matched your search.
-</p>
 
 <ul class="events-list list-group">
-    {% for event in results %}
-        <h5>{{ event['name'] }} 📅 {{ event['dates']['start']['localDate'] }}</h5>
+    {% for key in results.keys() %}
+            <a href="{{ results[key][0] }}"><h4>{{ key }}</h4></a>
+            <ul><span><b>Venue: </b>{{ results[key][1] }} 📅 {{ results[key][2] }}</span></ul>
     {% endfor %}
 </ul>
 

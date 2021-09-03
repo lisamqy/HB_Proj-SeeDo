@@ -3,6 +3,7 @@ from flask import Flask, session, render_template, request, flash, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from model import connect_to_db
 import crud
+import helper
 from pprint import pformat
 import os
 import requests
@@ -130,7 +131,24 @@ def add_event(plan_id):
     crud.add_plan_events(plan_id=plan_id, event_id=event_id)
 
     return redirect(f"/plan/{plan_id}")  
-    
+
+@app.route("/plan/<plan_id>/overview", methods=["POST"])
+def add_plan_overview(plan_id):
+    """Edit overview for current plan"""
+
+    overview = request.form.get("txtEditOverview")
+    crud.edit_plan_overview(plan_id=plan_id, overview=overview)
+
+    return redirect(f"/plan/{plan_id}")   
+
+@app.route("/plan/<plan_id>/delete", methods=["POST"])
+def del_current_plan(plan_id):
+    """Delete current plan"""
+
+    crud.del_plan_by_id(plan_id) 
+
+    return redirect("/") 
+      
 
 @app.route("/event/<event_id>")
 def event_page(event_id):
@@ -148,20 +166,24 @@ def event_page(event_id):
 def find_events():
     """Search for events on Ticketmaster"""
 
-    # keyword = request.args.get('keyword', '')
+    keyword = request.args.get('keyword', '')
+    city = request.args.get('city', '')
     postalcode = request.args.get('zipcode', '')
-    # radius = request.args.get('radius', '')
-    # unit = request.args.get('unit', '')
-    sort = request.args.get('sort', '')
 
     url = 'https://app.ticketmaster.com/discovery/v2/events'
     payload = {'apikey': API_KEY,
-               'postalcode': postalcode}
+                'keyword': keyword,
+                'city': city,
+                'postalcode': postalcode,
+                'sort': 'date,asc',
+                'countryCode': 'US'}
 
     response = requests.get(url, params=payload)
 
-    data = response.json()
-    events = data['_embedded']['events']
+    data = response.json()['_embedded']['events']
+    events = helper.clean_search_results(data)
+
+    # print(f"\n\n\n{events}\n\n\n")    
 
     return render_template('searchresults.html',
                            pformat=pformat,
