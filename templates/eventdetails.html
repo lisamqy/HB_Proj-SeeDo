@@ -19,7 +19,7 @@
 {% endif %}  
 
 <!-- maybe include google maps api for the exact location of destinations -->
-<p>- Location details:  {{ location[0] }}, Zipcode: {{ location[1] }}</p>
+<p>- Location details:  {{ location[0] }}, {{ location[1] }} [{{ location[2] }}]</p>
 <p>- Starts: {{ event.datetime.strftime('%d, %b %Y') }}</p>
 
 <div>

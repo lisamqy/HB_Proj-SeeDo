@@ -168,7 +168,7 @@ def find_events():
 
     keyword = request.args.get('keyword', '')
     city = request.args.get('city', '')
-    postalcode = request.args.get('zipcode', '')
+    postalcode = request.args.get('zipcode', '') #NOTE this seems to be disregarded by the search results
 
     url = 'https://app.ticketmaster.com/discovery/v2/events'
     payload = {'apikey': API_KEY,
@@ -180,10 +180,13 @@ def find_events():
 
     response = requests.get(url, params=payload)
 
-    data = response.json()['_embedded']['events']
+    #edge case where user's query outputs 0 results
+    if response.json()['page']['totalElements'] == 0:
+        flash('0 Results found...Please try another query😥')
+        return redirect("/")
+    
+    data = response.json()['_embedded']['events'] 
     events = helper.clean_search_results(data)
-
-    # print(f"\n\n\n{events}\n\n\n")    
 
     return render_template('searchresults.html',
                            pformat=pformat,
