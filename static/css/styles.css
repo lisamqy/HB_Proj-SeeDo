@@ -17,5 +17,10 @@ body {
 }
 
 .makered {
-        color: red;
+    color: red;
+}
+
+.tm-img {
+    max-width: 10%;
+    height: auto;
 }
