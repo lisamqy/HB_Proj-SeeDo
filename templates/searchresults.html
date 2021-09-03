@@ -14,7 +14,8 @@
 <ul class="events-list list-group">
     {% for key in results.keys() %}
             <a href="{{ results[key][0] }}"><h4>{{ key }}</h4></a>
-            <ul><span><b>Venue: </b>{{ results[key][1] }} 📅 {{ results[key][2] }}</span></ul>
+            <span>{{ results[key][1] }}</span>
+            <ul><span><b>Venue: </b>{{ results[key][2] }} 📅 {{ results[key][3] }}</span></ul>
     {% endfor %}
 </ul>
 

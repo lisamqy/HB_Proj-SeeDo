@@ -16,12 +16,13 @@ def clean_search_results(tm_response):
     for tm_event in tm_response: 
         # set a name key
         name = tm_event['name']
+        image = tm_event['images'][0]
         venue = tm_event['_embedded']['venues'][0]['name'] 
         start_date = tm_event['dates']['start']['localDate']
         # start_time = tm_event['dates']['start']['localTime'] #NOTE shows have multiple show times so might cause user confusion if i add
         #TODO add in a date and time key
         if name not in events: #if name doesnt exist then we add url
-            events[name] = [tm_event['url'], venue, start_date]
+            events[name] = [tm_event['url'], image, venue, start_date]
 
     return events
    
