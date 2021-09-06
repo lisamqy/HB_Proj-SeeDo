@@ -13,7 +13,7 @@
 </h3>
 
 <div class="liked-response"></div>
- <span>💖{{ event.liked }}</span>
+ <span>💖{{ likes }}</span>
 {% if "current_user" in session  %}
     <button value="{{ event.event_id }}" class="like-button">give ♥️</button>
 {% endif %}  

@@ -22,6 +22,8 @@ $('.like-button').on('click', (evt) => {
     })
 })
 
+
+//hide/show event overview details editor
 $("input[name=btnEditOverview]").on('click', () => {
     if ($("#dvEditOverview").hasClass("hide")) {
         $("#dvEditOverview").removeClass("hide");

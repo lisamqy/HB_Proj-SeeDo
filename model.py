@@ -13,12 +13,29 @@ class User(db.Model):
     email = db.Column(db.String(20), nullable=False, unique=True)
     password = db.Column(db.String(16), nullable=False)
     
-    plans = db.relationship("Plan", backref="users") 
+    plans = db.relationship("Plan", backref="users")                  
     # EX: user1.plans to get all plans related to user1; plan1.user to find user who created plan1
+    event = db.relationship("Event",
+                             secondary="likes",
+                             backref="users") 
 
     def __repr__(self):
         """Show user's id and email."""
         return f"<User user_id={self.user_id} email={self.email}>"
+
+
+class Likes(db.Model):
+    """Show an event's likes."""
+
+    __tablename__ = "likes"
+
+    like_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer,
+                        db.ForeignKey('users.user_id'),
+                        nullable=False)
+    event_id = db.Column(db.Integer,
+                        db.ForeignKey('events.event_id'),
+                        nullable=False)
 
 
 class Location(db.Model):
@@ -87,7 +104,6 @@ class Event(db.Model):
                             nullable=False)
     overview = db.Column(db.String(100), nullable=False)
     datetime = db.Column(db.DateTime)
-    liked = db.Column(db.Integer)
 
     images = db.relationship("Image", backref="events") 
     # EX: event1.images to get all images related to event1, img1.event to find which event img from

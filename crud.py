@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, User, Location, Plan, Image, Event, Theme, PlanEvent, connect_to_db
+from model import db, User, Location, Plan, Image, Event, Theme, PlanEvent, connect_to_db, Likes
 
 
 def create_user(username, email, password):
@@ -29,12 +29,26 @@ def get_user_by_email(email):
     return User.query.filter(User.email==email).first()
 
 
-def add_like(event_id):
+def add_like(user_id,event_id):
     """Add a like to an event."""
 
-    update = Event.query.filter_by(event_id=event_id).first()
-    update.liked += 1
+    like = Likes(user_id=user_id, event_id=event_id)
+
+    db.session.add(like)
     db.session.commit()
+
+    return like
+
+def has_liked(user_id,event_id): 
+    """Check if user has already liked the event."""
+
+    return Likes.query.filter_by(user_id=user_id,event_id=event_id).count()
+
+
+def get_likes(event_id):
+    """Count the number of unique user likes for an event."""
+
+    return Likes.query.filter_by(event_id=event_id).count()
 
 
 def create_location(zipcode, cityname, statename):
@@ -125,10 +139,10 @@ def get_images(num=None):
     return Image.query.all()[:num]
 
 
-def create_event(location_id, overview=None, datetime=None, liked=None):
+def create_event(location_id, overview=None, datetime=None):
     """Create and return a new event."""
 
-    event = Event(location_id=location_id, overview=overview, datetime=datetime, liked=liked)
+    event = Event(location_id=location_id, overview=overview, datetime=datetime)
     # EX: >>>event5 = create_event(1,'Movie Night','2020,1,1')
 
     db.session.add(event)

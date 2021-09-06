@@ -50,10 +50,9 @@ for name in names:
     location_id = randint(1,len(locations_db))
     x = choice(events)
     overview = f"{name}'s {x.title()}"
-    datetime = datetime.now()
-    liked = randint(20,100)
+    datetime = datetime.now()\
 
-    event = crud.create_event(location_id, overview, datetime, liked)
+    event = crud.create_event(location_id, overview, datetime)
     events_db.append(event)
 
 
@@ -64,6 +63,13 @@ for num in range(10):
 
     image = crud.create_image(image_location, event_id)
 
+
+# Create some likes
+for num in range(20):
+    user_id = randint(1,9) #since we made 10 users above
+    event_id = randint(1,len(events_db))
+
+    likes = crud.add_like(user_id,event_id)
 
 # Create x themes
 with open("data/themes.json") as f:
@@ -81,7 +87,7 @@ for theme in theme_data:
 # Create x plans
 plan_list = []
 for num in range(10):
-    user_id = randint(1,10)
+    user_id = randint(1,9)
     location_id = randint(1,len(locations_db))
 
     plan = crud.create_plan(user_id,location_id)

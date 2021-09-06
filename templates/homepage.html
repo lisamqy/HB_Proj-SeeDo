@@ -47,7 +47,7 @@
     <div class="liked-response"></div>
     {% for event in events %}
         <div>
-        <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 💖 {{ event.liked }}
+        <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 💖 {{ likes[loop.index-1] }}
         {% if "current_user" in session  %}
             <button value="{{ event.event_id }}" class="like-button">give ♥️</button>
         {% endif %}   

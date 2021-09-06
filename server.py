@@ -27,8 +27,13 @@ def homepage():
     else: 
         user = None
     events = sample(crud.get_events(),10)
+    likes = []
+    for event in events:
+        
+        like = crud.get_likes(event.event_id)
+        likes.append(like)
 
-    return render_template("homepage.html", user=user, events=events) 
+    return render_template("homepage.html", user=user, events=events, likes=likes) 
     
 
 @app.route("/handle-login", methods=["POST"])
@@ -53,8 +58,9 @@ def handle_likes():
     """Update an event's number of likes"""  
     
     if "current_user" in session:
+        user_id = session["current_user"]
         event_id = request.form.get("eventId")
-        crud.add_like(event_id)
+        crud.add_like(user_id, event_id)
         return "Success"
     else:
         flash("Please log in or sign up to add 💖")
@@ -158,8 +164,9 @@ def event_page(event_id):
     location = crud.get_location_by_id(event.location_id)
     all_theme = crud.get_theme()
     theme = sample(all_theme,3)
+    likes = crud.get_likes(event_id)
 
-    return render_template("eventdetails.html", event=event, location=location, theme=theme)
+    return render_template("eventdetails.html", event=event, location=location, theme=theme, likes=likes)
 
 
 @app.route("/search")
