@@ -150,8 +150,6 @@ def get_images(event_id):
 def create_event(location_id, overview=None, datetime=None):
     """Create and return a new event."""
 
-    #TODO:FIX DUPE EVENTS
-
     event = Event(location_id=location_id, overview=overview, datetime=datetime)
     # EX: >>>event5 = create_event(1,'Movie Night','2020,1,1')
 
@@ -159,6 +157,11 @@ def create_event(location_id, overview=None, datetime=None):
     db.session.commit()
 
     return event
+
+def existing_event(overview): 
+    """Check if this event has already been added to db."""
+
+    return Event.query.filter_by(overview=overview).count()    
 
 def get_events(num=None):
     """Get a specific number of events and their overview from database."""    

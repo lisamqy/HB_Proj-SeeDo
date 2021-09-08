@@ -60,15 +60,11 @@ def handle_login():
 def handle_likes():
     """Update an event's number of likes"""  
     
-    if "current_user" in session:
-        user_id = session["current_user"]
-        event_id = request.form.get("eventId")
-        crud.add_like(user_id, event_id)
-        return "Success"
-    else:
-        flash("Please log in or sign up to add 💖")
-        return redirect("/")
-
+    user_id = session["current_user"]
+    event_id = request.form.get("eventId")
+    crud.add_like(user_id, event_id)
+    return "Success"
+    
 
 @app.route("/goodbye")   
 def logout():
@@ -194,8 +190,6 @@ def find_events():
 
     keyword = request.args.get('keyword', '')
     city = request.args.get('city', '')
-    # postalcode = request.args.get('zipcode', '') 
-        #NOTE the zipcode seems to be disregarded by the search results
     collected_date = request.args.get('date', '')
     #in case user does not input date; set as today
     if collected_date == '':
@@ -207,7 +201,6 @@ def find_events():
     payload = {'apikey': API_KEY,
                 'keyword': keyword,
                 'city': city,
-                # 'postalcode': postalcode,
                 'startDateTime': startdate,
                 'sort': 'date,asc',
                 'countryCode': 'US'}
@@ -221,7 +214,6 @@ def find_events():
     
     data = response.json()['_embedded']['events'] 
     events = helper.clean_search_results(data)
-
 
     user_id = session["current_user"]
     user_plans = crud.get_plans(user_id)
@@ -242,7 +234,10 @@ def create_add_event_to_plan():
     overview = request.form.get('overview')
     datetime = request.form.get('datetime')
 
-    new_event = crud.create_event(location_id=loc_id,overview=overview,datetime=datetime)
+    times_event_in_db = crud.existing_event(overview)
+    #only create new event if it's not already in db
+    if times_event_in_db < 1:
+        new_event = crud.create_event(location_id=loc_id,overview=overview,datetime=datetime)
     
     event_id = crud.get_event_by_name(overview)
 

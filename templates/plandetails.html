@@ -7,7 +7,6 @@
 <h2>✨Plan id#{{ plan.plan_id }}✨</h2>
 
 <h3>
-    <!-- TODO: make this a textarea so user can customize their own description for plan -->
     Overview: {{ plan.overview }} 
     <span class="edit-plan-overview">
         <input type="button" value="edit" name="btnEditOverview"/>
@@ -25,7 +24,7 @@
     <ol id="event-list">
         {% for event in events %}
             <li>
-                {{ event.overview }} 📅 [{{ event.datetime.strftime('%d, %b %Y') }}]
+                <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 📅 [{{ event.datetime.strftime('%d, %b %Y') }}]
             </li>
         {% endfor %}
     </ol>

@@ -39,8 +39,6 @@
                 <option value="{{ location.cityname }}">{{ location.cityname }}</option>
             {% endfor %}
         </select>
-        <!-- <input type="text" name="city" placeholder="city" required> -->
-        <!-- <input type="number" name="postalcode" placeholder="zipcode"> -->
         <input type="text" name="keyword" placeholder="keyword">
         <input type="date" name="date" placeholder="yyyy-mm-dd">
     </form>
@@ -53,11 +51,7 @@
     {% for event in events %}
         <div>
         <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 💖 <span id="like-counter">{{ likes[loop.index-1] }}</span>
-        <!-- {% if "current_user" in session  %}
-            <button value="{{ event.event_id }}" class="like-button">give ♥️</button>
-        {% endif %}    -->
         </div>
-        
     {% endfor %}   
 
 </div>
