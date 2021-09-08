@@ -173,6 +173,11 @@ def get_event_by_id(event_id):
 
     return Event.query.filter_by(event_id=event_id).one()
 
+def get_event_by_name(overview):
+    """Find event from db by it's overview"""
+
+    return Event.query.filter_by(overview=overview).first().event_id    
+
 
 def create_theme(tag=None, overview=None):
     """Create and return a new theme."""

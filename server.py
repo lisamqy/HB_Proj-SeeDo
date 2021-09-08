@@ -9,6 +9,7 @@ import os
 import requests
 from jinja2 import StrictUndefined
 from random import sample
+from datetime import date
 
 app = Flask(__name__)
 app.secret_key = 'secret'
@@ -26,7 +27,7 @@ def homepage():
         user = crud.get_user_by_id(session["current_user"])
     else: 
         user = None
-    events = sample(crud.get_events(),10)
+    events = sample(crud.get_events(),8)
     likes = []
     for event in events:
         
@@ -196,14 +197,18 @@ def find_events():
     # postalcode = request.args.get('zipcode', '') 
         #NOTE the zipcode seems to be disregarded by the search results
     collected_date = request.args.get('date', '')
-    date = collected_date+'T12:00:00Z'
+    #in case user does not input date; set as today
+    if collected_date == '':
+        today = date.today()
+        collected_date = today.strftime("%Y-%m-%d")
+    startdate = collected_date+'T12:00:00Z'
 
     url = 'https://app.ticketmaster.com/discovery/v2/events'
     payload = {'apikey': API_KEY,
                 'keyword': keyword,
                 'city': city,
                 # 'postalcode': postalcode,
-                'startDateTime': date,
+                'startDateTime': startdate,
                 'sort': 'date,asc',
                 'countryCode': 'US'}
 
@@ -217,10 +222,15 @@ def find_events():
     data = response.json()['_embedded']['events'] 
     events = helper.clean_search_results(data)
 
+
+    user_id = session["current_user"]
+    user_plans = crud.get_plans(user_id)
+
     return render_template('searchresults.html',
                            pformat=pformat,
                            data=data,
-                           results=events)
+                           results=events,
+                           user_plans=user_plans)
 
 
 @app.route("/CreateAddEvent", methods=['POST'])
@@ -233,7 +243,15 @@ def create_add_event_to_plan():
     datetime = request.form.get('datetime')
 
     new_event = crud.create_event(location_id=loc_id,overview=overview,datetime=datetime)
-    return redirect("/")
+    
+    event_id = crud.get_event_by_name(overview)
+
+    user_id = session["current_user"]
+    plan_id = request.form.get('plans')
+    add_to_plan = crud.add_plan_events(plan_id, event_id)
+   
+
+    return redirect(f"/plan/{plan_id}")
 
 
 

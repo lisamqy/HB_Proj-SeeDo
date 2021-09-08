@@ -24,6 +24,12 @@
                 <input type="text" name="city" value="{{ results[key][3] }}" hidden>
                 <input type="text" name="datetime" value="{{ results[key][4] }}" hidden>
                 
+                <select name="plans">
+                    {% for plan in user_plans %}
+                        <option value="{{ plan.plan_id }}">{{ plan.overview }}</option>
+                    {% endfor %}
+                </select>
+
                 <input type="submit" value="add">
             </form>
     {% endfor %}
