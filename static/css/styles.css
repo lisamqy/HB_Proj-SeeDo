@@ -16,6 +16,10 @@ body {
     display: none;
 }
 
+.disabled:disabled{
+    background-color: gray;
+}
+
 .makered {
     color: red;
 }

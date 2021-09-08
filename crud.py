@@ -44,11 +44,15 @@ def has_liked(user_id,event_id):
 
     return Likes.query.filter_by(user_id=user_id,event_id=event_id).count()
 
-
 def get_likes(event_id):
     """Count the number of unique user likes for an event."""
 
     return Likes.query.filter_by(event_id=event_id).count()
+
+def get_user_liked(user_id):
+    """Get all events liked by current user."""
+
+    return Likes.query.filter_by(user_id=user_id).all()
 
 
 def create_location(zipcode, cityname, statename):
@@ -74,6 +78,11 @@ def get_location_by_id(location_id):
     state = Location.query.filter_by(location_id=location_id).one().statename
 
     return [city,state,zipcode]
+
+def get_loc_id_by_city(cityname):
+    """Get location_id by cityname"""
+
+    return Location.query.filter_by(cityname=cityname).first()
 
 
 def create_plan(user_id,location_id,overview=None):
@@ -130,13 +139,10 @@ def create_image(image_location=None, event_id=None):
 
     return image    
 
-def get_images(num=None):
-    """Get all or a number of images from database."""    
+def get_images(event_id):
+    """Get images associated with the event_id from database."""      
 
-    if num == None:
-        return Image.query.all()  
-
-    return Image.query.all()[:num]
+    return Image.query.filter_by(event_id=event_id)
 
 
 def create_event(location_id, overview=None, datetime=None):

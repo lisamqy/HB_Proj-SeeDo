@@ -29,8 +29,12 @@
         </form>
 </div>
 <div>
-    <h3>Liked event list</h3>
-        💖 <ul></ul>
+    <h3>💖 Liked event list💖</h3>
+        <ul> 
+            {% for event in event_list %}
+            <a href="/event/{{ event.event_id }}"><li>{{ event.overview }}</li>
+            {% endfor %}
+        </ul>
 </div>
 
 {% endblock %}

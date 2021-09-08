@@ -101,8 +101,15 @@ def user_page(user_id):
     user = crud.get_user_by_id(user_id)
     plans = crud.get_plans(user_id)
     all_locations = crud.get_locations()
+    liked = crud.get_user_liked(user_id)
+    event_list = []
 
-    return render_template("accountdetails.html", user=user, plans=plans, all_locations=all_locations)
+    #get a list of all events liked by current user; show event's overview
+    for like in liked: 
+        event_id = crud.get_event_by_id(like.event_id)  
+        event_list.append(event_id)
+
+    return render_template("accountdetails.html", user=user, plans=plans, all_locations=all_locations, event_list=event_list)
 
 
 @app.route("/user/<user_id>", methods=["POST"])
@@ -164,9 +171,18 @@ def event_page(event_id):
     location = crud.get_location_by_id(event.location_id)
     all_theme = crud.get_theme()
     theme = sample(all_theme,3)
+    images = crud.get_images(event_id)
     likes = crud.get_likes(event_id)
 
-    return render_template("eventdetails.html", event=event, location=location, theme=theme, likes=likes)
+    #check if user logged in, so we can then see if they've already liked the current event...
+    if "current_user" in session: 
+        user_id = session["current_user"]
+        like_count = crud.has_liked(user_id,event_id)
+    #...otherwise set like_count to not 0 so they can't like the event
+    #FIXME this messes with users who are logged in since it doesnt allow them to like the event either
+    # like_count = 1    
+
+    return render_template("eventdetails.html", event=event, location=location, theme=theme, images=images, likes=likes, like_count=like_count)
 
 
 @app.route("/search")
@@ -199,6 +215,22 @@ def find_events():
                            pformat=pformat,
                            data=data,
                            results=events)
+
+
+@app.route("/CreateAddEvent", methods=['POST'])
+def create_add_event_to_plan():
+    """Create and add the ticketmaster event to a user's plan"""
+
+    cityname = request.form.get('city')
+    print(cityname)
+    loc_id = crud.get_loc_id_by_city(cityname)
+    overview = request.form.get('overview')
+    datetime = request.form.get('datetime')
+
+    new_event = crud.create_event(location_id=loc_id,overview=overview,datetime=datetime)
+    print(f"\n\nLOOK HERE: {new_event} \n\n")
+    return new_event
+
 
 
 if __name__ == "__main__":
