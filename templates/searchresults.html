@@ -13,12 +13,17 @@
 
 <ul class="events-list list-group">
     {% for key in results.keys() %}
-            <a href="{{ results[key][0] }}"><h4 id="event-name" value="{{ key }}">{{ key }}</h4></a>
-            <form action="/CreateAddEvent" method="POST">
+            <a href="{{ results[key][0] }}"><h4>{{ key }}</h4></a>
+            <form class="searchevent" action="/CreateAddEvent" method="POST">
                 <ul><span><img class="tm-img" src="{{ results[key][1] }}" alt="image of event"></span></ul>
-                <ul><span id="city" value="{{ results[key][3] }}"><b>City: </b>{{ results[key][3] }}</span></ul>
-                <ul><span id="datetime" value="{{ results[key][4] }}"><b>Date: </b>{{ results[key][4] }}</span></ul>    
+                <ul><span><b>City: </b>{{ results[key][3] }}</span></ul>
+                <ul><span><b>Date: </b>{{ results[key][4] }}</span></ul>    
                 <ul><span><b>Venue: </b>{{ results[key][2] }}</span></ul>
+
+                <input type="text" name="overview" value="{{ key }}" hidden>
+                <input type="text" name="city" value="{{ results[key][3] }}" hidden>
+                <input type="text" name="datetime" value="{{ results[key][4] }}" hidden>
+                
                 <input type="submit" value="add">
             </form>
     {% endfor %}

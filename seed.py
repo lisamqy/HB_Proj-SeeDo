@@ -42,8 +42,8 @@ for location in location_data:
 
 
 # Create x events
-names = ["Amy", "Betty", "Charles", "Danny", "Ella", "Felicia", "George", "Hailey", "Ivan", "Joyce", "Kathy", "Lana", "Manuel", "Nate", "Oberyn", "Penny", "Quinn", "Rue", "Steven", "Ted"]
-events = ["birthday party", "pool party", "backyard BBQ", "sleepover", "hiking trip", "picnic trip", "potluck", "virtual game night", "online workout", "magic show", "paint night", "cookathon", "puppet show", "casino night", "art exhibit", "speed dating event", "fireworks show", "scavenger hunt", "karaoke night"]
+names = ["Amy", "Betty", "Charles", "Danny", "Ella", "Felicia", "George", "Hailey"]
+events = ["birthday party", "pool party", "backyard BBQ", "hiking trip", "picnic trip", "virtual game night", "online workout", "paint night", "casino night", "art exhibit", "fireworks show", "scavenger hunt", "karaoke night"]
 
 events_db = []
 for name in names:

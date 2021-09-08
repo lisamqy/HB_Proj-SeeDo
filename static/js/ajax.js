@@ -36,24 +36,3 @@ $("input[name=btnEditOverview]").on('click', () => {
      
 });
 
-
-$('#searchresults').on('submit', (evt) => {
-    evt.preventDefault();
-    
-    // Get user input from a form
-    re = /: (.*)/
-    let cityInfo = ($('#city')[0].innerText)
-    let dateInfo = ($('#datetime')[0].innerText)
-
-    const formData = {
-        city: cityInfo.match(re),
-        overview: $('#event-name')[0].innerText,
-        datetime: dateInfo.match(re)
-    };
-  
-    // Send formData to the server (becomes a query string)
-    $.get('/CreateAddEvent', formData, (res) => {
-      // Display response from the server
-        console.log(res)
-    });
-  });

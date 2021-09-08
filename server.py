@@ -33,7 +33,9 @@ def homepage():
         like = crud.get_likes(event.event_id)
         likes.append(like)
 
-    return render_template("homepage.html", user=user, events=events, likes=likes) 
+    locations = crud.get_locations()
+
+    return render_template("homepage.html", user=user, events=events, likes=likes, locations=locations) 
     
 
 @app.route("/handle-login", methods=["POST"])
@@ -174,13 +176,13 @@ def event_page(event_id):
     images = crud.get_images(event_id)
     likes = crud.get_likes(event_id)
 
-    #check if user logged in, so we can then see if they've already liked the current event...
+    #check if user logged in, so we can then see if they've already liked the current event to decide which like button to show...
     if "current_user" in session: 
         user_id = session["current_user"]
         like_count = crud.has_liked(user_id,event_id)
-    #...otherwise set like_count to not 0 so they can't like the event
-    #FIXME this messes with users who are logged in since it doesnt allow them to like the event either
-    # like_count = 1    
+    #...if not logged in, guest will only see the liked #
+    else:
+        like_count = 1    
 
     return render_template("eventdetails.html", event=event, location=location, theme=theme, images=images, likes=likes, like_count=like_count)
 
@@ -191,13 +193,17 @@ def find_events():
 
     keyword = request.args.get('keyword', '')
     city = request.args.get('city', '')
-    postalcode = request.args.get('zipcode', '') #NOTE this seems to be disregarded by the search results
+    # postalcode = request.args.get('zipcode', '') 
+        #NOTE the zipcode seems to be disregarded by the search results
+    collected_date = request.args.get('date', '')
+    date = collected_date+'T12:00:00Z'
 
     url = 'https://app.ticketmaster.com/discovery/v2/events'
     payload = {'apikey': API_KEY,
                 'keyword': keyword,
                 'city': city,
-                'postalcode': postalcode,
+                # 'postalcode': postalcode,
+                'startDateTime': date,
                 'sort': 'date,asc',
                 'countryCode': 'US'}
 
@@ -222,14 +228,12 @@ def create_add_event_to_plan():
     """Create and add the ticketmaster event to a user's plan"""
 
     cityname = request.form.get('city')
-    print(cityname)
     loc_id = crud.get_loc_id_by_city(cityname)
     overview = request.form.get('overview')
     datetime = request.form.get('datetime')
 
     new_event = crud.create_event(location_id=loc_id,overview=overview,datetime=datetime)
-    print(f"\n\nLOOK HERE: {new_event} \n\n")
-    return new_event
+    return redirect("/")
 
 
 

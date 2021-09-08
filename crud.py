@@ -82,7 +82,9 @@ def get_location_by_id(location_id):
 def get_loc_id_by_city(cityname):
     """Get location_id by cityname"""
 
-    return Location.query.filter_by(cityname=cityname).first()
+    location = Location.query.filter_by(cityname=cityname).first()
+    if location:
+        return location.location_id
 
 
 def create_plan(user_id,location_id,overview=None):
@@ -147,6 +149,8 @@ def get_images(event_id):
 
 def create_event(location_id, overview=None, datetime=None):
     """Create and return a new event."""
+
+    #TODO:FIX DUPE EVENTS
 
     event = Event(location_id=location_id, overview=overview, datetime=datetime)
     # EX: >>>event5 = create_event(1,'Movie Night','2020,1,1')
