@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import db, User, Location, Plan, Image, Event, Theme, PlanEvent, connect_to_db, Likes
+from model import db, User, Location, Plan, Event, Theme, PlanEvent, connect_to_db, Likes
 
 
 def create_user(username, email, password):
@@ -131,26 +131,11 @@ def get_location_by_planid(plan_id):
 
     return Plan.query.filter_by(plan_id=plan_id).one().location_id
 
-def create_image(image_location=None, event_id=None):
-    """Create and return a new image."""
 
-    image = Image(image_location=image_location, event_id=event_id)
-
-    db.session.add(image)
-    db.session.commit()
-
-    return image    
-
-def get_images(event_id):
-    """Get images associated with the event_id from database."""      
-
-    return Image.query.filter_by(event_id=event_id)
-
-
-def create_event(location_id, overview=None, datetime=None):
+def create_event(location_id, overview=None, datetime=None, image=None):
     """Create and return a new event."""
 
-    event = Event(location_id=location_id, overview=overview, datetime=datetime)
+    event = Event(location_id=location_id, overview=overview, datetime=datetime, image=image)
     # EX: >>>event5 = create_event(1,'Movie Night','2020,1,1')
 
     db.session.add(event)
@@ -159,12 +144,12 @@ def create_event(location_id, overview=None, datetime=None):
     return event
 
 def existing_event(overview): 
-    """Check if this event has already been added to db."""
+    """Check if this event has already been added to database."""
 
     return Event.query.filter_by(overview=overview).count()    
 
 def get_events(num=None):
-    """Get a specific number of events and their overview from database."""    
+    """Get all or a specific number of events from database."""    
 
     if num == None:
         return Event.query.all() 
@@ -207,6 +192,11 @@ def add_plan_events(plan_id, event_id):
 
     return plan_event
 
+def del_from_planevent(event_id, plan_id):
+    """Delete an event from current plan"""
+    
+    PlanEvent.query.filter_by(event_id=event_id, plan_id=plan_id).delete()
+    db.session.commit()
 
 
 if __name__ == '__main__':

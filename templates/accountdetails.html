@@ -27,7 +27,6 @@
         {% endfor %}
         <br><br>
         <form action="/user/{{ user.user_id }}" method="POST">
-            <!-- <input type="text" name="location_id" placeholder="location_id for new plan" required> -->
             <select name="citynames" id="city-select">
                 {% for place in all_locations %}
                     <option value="{{ place.location_id }}">{{ place.cityname }}</option>

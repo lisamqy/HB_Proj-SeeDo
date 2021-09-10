@@ -158,8 +158,17 @@ def del_current_plan(plan_id):
     """Delete current plan"""
 
     crud.del_plan_by_id(plan_id) 
+    user_id = session["current_user"]
 
-    return redirect("/") 
+    return redirect(f"/user/{user_id}") 
+
+@app.route("/plan/<plan_id>/delete/<event_id>")
+def edit_plan_events(plan_id, event_id):
+    """Delete events under current plan"""
+
+    crud.del_from_planevent(event_id=event_id, plan_id=plan_id)
+
+    return "Event deleted"     
       
 
 @app.route("/event/<event_id>")
@@ -169,8 +178,6 @@ def event_page(event_id):
     event = crud.get_event_by_id(event_id)
     location = crud.get_location_by_id(event.location_id)
     all_theme = crud.get_theme()
-    theme = sample(all_theme,3)
-    images = crud.get_images(event_id)
     likes = crud.get_likes(event_id)
 
     #check if user logged in, so we can then see if they've already liked the current event to decide which like button to show...
@@ -181,7 +188,7 @@ def event_page(event_id):
     else:
         like_count = 1    
 
-    return render_template("eventdetails.html", event=event, location=location, theme=theme, images=images, likes=likes, like_count=like_count)
+    return render_template("eventdetails.html", event=event, location=location, likes=likes, like_count=like_count)
 
 
 @app.route("/search")
@@ -215,8 +222,12 @@ def find_events():
     data = response.json()['_embedded']['events'] 
     events = helper.clean_search_results(data)
 
-    user_id = session["current_user"]
-    user_plans = crud.get_plans(user_id)
+    #this makes sure if guest is browsing, it wont trigger an error trying to grab a user's plans on the event search results page
+    if "current_user" in session:
+        user_id = session["current_user"]
+        user_plans = crud.get_plans(user_id)
+    else: 
+        user_plans = None
 
     return render_template('searchresults.html',
                            pformat=pformat,
@@ -233,19 +244,19 @@ def create_add_event_to_plan():
     loc_id = crud.get_loc_id_by_city(cityname)
     overview = request.form.get('overview')
     datetime = request.form.get('datetime')
+    image_url = request.form.get('image')
 
     times_event_in_db = crud.existing_event(overview)
     #only create new event if it's not already in db
     if times_event_in_db < 1:
-        new_event = crud.create_event(location_id=loc_id,overview=overview,datetime=datetime)
+        new_event = crud.create_event(location_id=loc_id,overview=overview,datetime=datetime, image=image_url)
     
     event_id = crud.get_event_by_name(overview)
 
     user_id = session["current_user"]
     plan_id = request.form.get('plans')
     add_to_plan = crud.add_plan_events(plan_id, event_id)
-   
-
+    
     return redirect(f"/plan/{plan_id}")
 
 

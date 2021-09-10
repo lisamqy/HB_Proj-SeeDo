@@ -7,11 +7,6 @@ $('#event-adder').on('click', () => {
     }
 })
 
-// TODO: adds an event item from homepage to a user's plan
-// $('#dropdown-event-adder').on('click', () => {
-//     $('#event-list').append(`<li>${$('option').html()}</li>`)
-// })
-
 
 //gets the like button to communicate with server.py's function
 $('.like-button').on('click', (evt) => {
@@ -26,7 +21,7 @@ $('.like-button').on('click', (evt) => {
 })
 
 
-//hide/show event overview details editor
+//allow user to hide/show event overview details editor
 $("input[name=btnEditOverview]").on('click', () => {
     if ($("#dvEditOverview").hasClass("hide")) {
         $("#dvEditOverview").removeClass("hide");
@@ -36,3 +31,19 @@ $("input[name=btnEditOverview]").on('click', () => {
      
 });
 
+
+//allow user to target which event they'd like to delete from their current plan
+$('.del-event-from-plan-btn').on('click', (evt) => {
+    const plan_id = $('#plan_id').html();
+    const event_id = evt.target.value; //gets the button's value aka -> eventId : event.event_id
+    $.get(`/plan/${plan_id}/delete/${event_id}`, (res) => {
+        console.log(res) //prints out whatever the route returns on server.py 
+        $(`#li${event_id}`).remove();
+    })
+})
+
+//guides user to create/search for events if none found for current city
+if ($('#dropdown-event')[0].length < 1 ) {
+    $('#relevant-events').remove();
+    $('#no-relevant-events').removeClass("hide");
+}

@@ -7,9 +7,6 @@
 <h2>✨Event ID#{{ event.event_id }}✨</h2>
 <h3>
     Overview: {{ event.overview }}
-    <br>
-<!-- TODO: add in a search bar so user can search between the themes in our db -->
-    <!-- Themes: {% for thm in theme %} #{{ thm.tag }} {% endfor %}  -->
 </h3>
 
 <div class="liked-response"></div>
@@ -26,13 +23,13 @@
 <p>- Location details:  {{ location[0] }}, {{ location[1] }}</p>
 <p>- Starts: {{ event.datetime.strftime('%d, %b %Y') }}</p>
 
-
-<div>
-    <p><u>Images</u></p>
-    {% for image in images %}
-    <li>{{ image.image_location }}</li>
-    {% endfor %}
-</div>
+{% if event.image %}
+    <div>
+        <img src="{{ event.image }}" alt="Event image">
+    </div>
+{% else %}
+    <small>< No image found for this event 😥 ></small>
+{% endif %}
 
 <br><br> 
 

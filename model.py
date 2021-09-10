@@ -104,9 +104,7 @@ class Event(db.Model):
                             nullable=False)
     overview = db.Column(db.String(100), nullable=False)
     datetime = db.Column(db.DateTime)
-
-    images = db.relationship("Image", backref="events") 
-    # EX: event1.images to get all images related to event1, img1.event to find which event img from
+    image = db.Column(db.String)
 
     themes = db.relationship("Theme",
                              secondary="eventthemes",
@@ -143,21 +141,6 @@ class Theme(db.Model):
     def __repr__(self):
         """Show theme details."""
         return f"<Theme theme_id={self.theme_id} tag={self.tag}>"
-
- 
-class Image(db.Model):
-    """An image."""
-
-    __tablename__ = "images" 
-
-    image_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    image_location = db.Column(db.String)
-    event_id = db.Column(db.Integer,
-                        db.ForeignKey("events.event_id"))
-
-    def __repr__(self):
-        """Show image details."""
-        return f"<Image image_id={self.image_id} Related to event.id={self.event_id}>"                        
 
 
 def connect_to_db(app, db_uri="postgresql:///project"):
