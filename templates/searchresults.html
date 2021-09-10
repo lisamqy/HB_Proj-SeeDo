@@ -10,6 +10,10 @@
 
 <a href="/"><button>Take me 🏠</button></a>
 
+<div class="no-relevant-items hide">
+    <p>Create a plan to start adding events!</p>
+</div>
+
 
 <ul class="events-list list-group">
     {% for key in results.keys() %}
@@ -26,21 +30,24 @@
                 <input type="text" name="image" value="{{ results[key][1] }}" hidden>
                 
                 <!-- this statement hides this section from guests browsing event search results  -->
-                {% if "current_user" in session %}
-                    <select name="plans">
-                        {% for plan in user_plans %}
-                            <option value="{{ plan.plan_id }}">
-                                {% if plan.overview == None %}
-                                    Untitled
-                                {% else %}
-                                    {{ plan.overview }}
-                                {% endif %}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <input type="submit" value="add">
-                {% endif %}    
+                <div class="relevant-items">
+                    {% if "current_user" in session %}
+                        <select name="plans" class="dropdown-items">
+                            {% for plan in user_plans %}
+                                <option value="{{ plan.plan_id }}">
+                                    {% if plan.overview == None %}
+                                        Untitled
+                                    {% else %}
+                                        {{ plan.overview }}
+                                    {% endif %}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" value="add">
+                    {% endif %}  
+                </div>
             </form>
+
     {% endfor %}
 </ul>
 

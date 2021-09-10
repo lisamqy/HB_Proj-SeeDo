@@ -29,7 +29,7 @@
     <ol id="event-list">
         {% for event in events %}
             <li id="li{{ event.event_id }}">
-                <button class="del-event-from-plan-btn" value="{{ event.event_id }}">➖</button>
+                <button class="del-event-from-plan-btn" value="{{ event.event_id }}">-</button>
                 <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 📅 [{{ event.datetime.strftime('%d, %b %Y') }}]
             </li>
         {% endfor %}
@@ -43,9 +43,9 @@
     <button id="event-adder">Custom event</button> 
 </form> -->
 <!-- MVP FEATURE -->
-<div id="relevant-events">
+<div class="relevant-items">
     <form action="/plan/{{ plan.plan_id }}" method="POST">
-        <select name="dropdown-event" id="dropdown-event">
+        <select name="dropdown-event" class="dropdown-items">
             {% for item in db_events %}
                 {% if item not in events %} <!--checks only for events not already on plan list-->
                     {% if plan.location_id == item.location_id %}
@@ -57,7 +57,7 @@
         <button id="dropdown-event-adder">Add event</button> 
     </form>
 </div>
-<div id="no-relevant-events" class="hide">
+<div class="no-relevant-items hide">
     <a href="/">
         <button>Search for events</button>
     </a>
