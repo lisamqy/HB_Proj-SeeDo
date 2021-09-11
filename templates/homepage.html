@@ -48,11 +48,23 @@
 
 <div id="home-events-section">
     <div class="liked-response"></div>
-    {% for event in events %}
-        <div>
-        <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 💖 <span id="like-counter">{{ likes[loop.index-1] }}</span>
-        </div>
-    {% endfor %}   
+    <div class="event-item">
+        {% for event in events %}
+            <a href="/event/{{ event.event_id }}">
+                {{ event.overview }}
+            </a>
+            💖
+            <span id="like-counter">
+                {{ likes[loop.index-1] }}
+            </span>
+            <br>
+            {% if event.image %}
+                <img class="tm-img" src="{{ event.image }}" alt="image of event">
+            {% endif %}
+            <br>
+        {% endfor %}   
+    </div>
+    
 
 </div>
 
