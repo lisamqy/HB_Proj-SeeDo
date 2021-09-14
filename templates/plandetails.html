@@ -30,13 +30,10 @@
         {% else %}
             {{ plan.overview }}
         {% endif %}
-        <span class="edit-plan-overview">
-            <input type="button" value="edit" name="btnEditOverview"/>
-        </span>
         <div id="dvEditOverview" class="hide">
             <form action="/plan/{{ plan.plan_id }}/overview" method="POST">
-                <input type="text" name="txtEditOverview">
-                <input type="submit" value="+">
+                <input type="textarea" name="txtEditOverview" placeholder="Edit Overview">
+                <input class="btn btn-sm" type="submit" value="➕">
             </form>
         </div>
     </h5>
@@ -49,7 +46,7 @@
         <ol id="event-list">
             {% for event in events %}
                 <li id="li{{ event.event_id }}">
-                    <button class="del-event-from-plan-btn" value="{{ event.event_id }}">-</button>
+                    <button class="del-event-from-plan-btn btn btn-outline-danger btn-sm hide" value="{{ event.event_id }}">ⅹ</button>
                     <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 📅 [{{ event.datetime.strftime('%d, %b %Y') }}]
                 </li>
             {% endfor %}
@@ -68,7 +65,7 @@
                     {% endif %}  
                 {% endfor %}
             </select>
-            <button id="dropdown-event-adder">Add event</button> 
+            <button id="dropdown-event-adder" class="btn btn-light btn-sm">Add event</button> 
         </form>
     </div>
     <div class="no-relevant-items hide">
@@ -79,13 +76,18 @@
 
     <br>
 
-    <!-- Delete Plan Button -->
+    <!-- Edit/Delete Plan Button -->
     <div>
-        <form action="/plan/{{ plan.plan_id }}/delete" method="POST">
-            <input class="makered" type="submit" value="Delete Plan">
+        <span class="edit-plan-content">
+            <input class="btn btn-outline-dark btn-sm" type="button" value="Edit Plan" name="btnEditOverview"/>
+        </span>
+        <form class="inline-button" action="/plan/{{ plan.plan_id }}/delete" method="POST">
+            <input class="btn btn-danger btn-sm" type="submit" value="Delete Plan">
         </form>
     </div>
 </div>
+
+<br><br>
 
 
 {% endblock %}

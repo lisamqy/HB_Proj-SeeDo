@@ -25,8 +25,10 @@ $('.like-button').on('click', (evt) => {
 $('input[name=btnEditOverview]').on('click', () => {
     if ($('#dvEditOverview').hasClass('hide')) {
         $('#dvEditOverview').removeClass('hide');
+        $('.del-event-from-plan-btn').removeClass('hide');
     } else {
         $('#dvEditOverview').addClass('hide');
+        $('.del-event-from-plan-btn').addClass('hide');
     }
      
 });

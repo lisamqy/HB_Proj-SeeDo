@@ -19,17 +19,17 @@
                         <input type="text" name="email" required>
                         <label class="col-form-label">Password</label>
                         <input type="password" name="password" required>
-                        <input type="submit" value="Login">
+                        <input class="btn btn-outline-dark btn-sm" type="submit" value="Login">
                         <span id="new-user" class="form-text">
-                            <a href="/new">Sign Up</a>
+                            <a class="navb" href="/new">Sign Up</a>
                         </span>
                     </form>  
                 {% endif %}
                 {% if "current_user" in session %}
                     Welcome, {{ user.username.title() }}
-                    <a href="/user/{{ user.user_id }}">View Account</a>
+                    <a class="navb" href="/user/{{ user.user_id }}">View Account</a>
                     <sub class="navbar-brand"><i class="material-icons">account_circle</i></sub>
-                    <a href="/goodbye">Logout</a>
+                    <a class="navb" href="/goodbye">Logout</a>
                     <sub class="navbar-brand"><i class="material-icons">logout</i></sub>
                 {% endif %}
             </div>
@@ -57,7 +57,7 @@
     <div id="home-events-section" class="container-fluid">
         <div class="event-item row align-items-start justify-content-center">
             {% for event in events %}
-                <div class="image column">
+                <div class="image">
                     {% if event.image %}
                         <img class="image__img img-thumbnail rounded" src="{{ event.image }}" alt="image of event">
                     {% else %}

@@ -11,9 +11,9 @@
         </a>
         <div>
             Welcome, {{ user.username.title() }} 
-            <a href="/user/{{ user.user_id }}">View Account</a>
+            <a class="navb" href="/user/{{ user.user_id }}">View Account</a>
             <sub class="navbar-brand"><i class="material-icons">account_circle</i></sub>
-            <a href="/goodbye">Logout</a>
+            <a class="navb" href="/goodbye">Logout</a>
             <sub class="navbar-brand"><i class="material-icons">logout</i></sub>
         </div>
     </div>
@@ -49,27 +49,25 @@
 
 <hr>
 
-<div class="container-fluid">
-    <div class="row align-items-start">
-
-        <h4>Liked event list</h4>
-            {% for event in event_list %}
-                <!-- <li><a href="/event/{{ event.event_id }}">{{ event.image }}</li></a> -->
-                <div class="image column">
-                    {% if event.image %}
-                        <img class="image__img img-thumbnail rounded" src="{{ event.image }}" alt="image of event">
-                    {% else %}
-                        <img class="image__img img-thumbnail rounded" src="static/img/event.jpeg" alt="default image of event">
-                    {% endif %}
-                    <div class="image__overlay image__overlay--blur">
-                        <p class="image__description center">
-                            <a href="/event/{{ event.event_id }}">
-                                {{ event.overview }}
-                            </a>
-                        </p>
-                    </div>
+<div class="container-fluid center">
+    <h4>Liked event list</h4>
+    <div class="horizontal-scroll">
+        {% for event in event_list %}
+            <div class="image scroll-column">
+                {% if event.image %}
+                    <img class="image__img img-thumbnail rounded" src="{{ event.image }}" alt="image of event">
+                {% else %}
+                    <img class="image__img img-thumbnail rounded" src="static/img/event.jpeg" alt="default image of event">
+                {% endif %}
+                <div class="image__overlay image__overlay--blur">
+                    <p class="image__description center">
+                        <a href="/event/{{ event.event_id }}">
+                            {{ event.overview }}
+                        </a>
+                    </p>
                 </div>
-            {% endfor %}
+            </div>
+        {% endfor %}
     </div>
 </div>
 

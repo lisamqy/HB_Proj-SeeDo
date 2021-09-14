@@ -7,8 +7,12 @@
 <nav class="navbar sticky-top navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
-            <i class="material-icons">home</i>
+            <sub><i class="material-icons">home</i></sub>Home
         </a>
+        <div>
+            <a class="navb" href="javascript:history.back()">Go Back</a>
+            <sub class="navbar-brand"><i class="material-icons">arrow_back</i></sub>
+        </div>
     </div>
 </nav>
 
@@ -25,9 +29,9 @@
 <div class="container-fluid">
         <ul class="events-list list-group">
         {% for key in results.keys() %}
-            <div id="search-result-item">
+            <div id="search-result-item" class="row">
                 <a href="{{ results[key][0] }}" target=”_blank” >
-                    <h5>{{ key }} <sub><i class="material-icons">link</i></sub></h5>
+                    <span>{{ key }} <sub><i class="material-icons">link</i></sub></span>
                 </a>
                 <form class="searchevent" action="/CreateAddEvent" method="POST">
                     <ul><span><img class="image" src="{{ results[key][1] }}" alt="image of event"></span></ul>
