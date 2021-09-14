@@ -4,52 +4,65 @@
 
 {% block content %}
 
-<div id="event-search-results">
-<h2>Event Search Results</h2>
-</div>
+<nav class="navbar sticky-top navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <i class="material-icons">home</i>
+        </a>
+    </div>
+</nav>
 
-<a href="/"><button>Take me 🏠</button></a>
+<br>
+
+<div id="event-search-results" class="center">
+    <h4>Event Search Results</h4>
+</div>
 
 <div class="no-relevant-items hide">
     <p>Create a plan to start adding events!</p>
 </div>
 
+<div class="container-fluid">
+        <ul class="events-list list-group">
+        {% for key in results.keys() %}
+            <div id="search-result-item">
+                <a href="{{ results[key][0] }}" target=”_blank” >
+                    <h5>{{ key }} <sub><i class="material-icons">link</i></sub></h5>
+                </a>
+                <form class="searchevent" action="/CreateAddEvent" method="POST">
+                    <ul><span><img class="image" src="{{ results[key][1] }}" alt="image of event"></span></ul>
+                    <ul><span><b>City: </b>{{ results[key][3] }}</span></ul>
+                    <ul><span><b>Date: </b>{{ results[key][4] }}</span></ul>    
+                    <ul><span><b>Venue: </b>{{ results[key][2] }}</span></ul>
 
-<ul class="events-list list-group">
-    {% for key in results.keys() %}
-            <a href="{{ results[key][0] }}" target=”_blank” ><h4>{{ key }}</h4></a>
-            <form class="searchevent" action="/CreateAddEvent" method="POST">
-                <ul><span><img class="tm-img" src="{{ results[key][1] }}" alt="image of event"></span></ul>
-                <ul><span><b>City: </b>{{ results[key][3] }}</span></ul>
-                <ul><span><b>Date: </b>{{ results[key][4] }}</span></ul>    
-                <ul><span><b>Venue: </b>{{ results[key][2] }}</span></ul>
+                    <input type="text" name="overview" value="{{ key }}" hidden>
+                    <input type="text" name="city" value="{{ results[key][3] }}" hidden>
+                    <input type="text" name="datetime" value="{{ results[key][4] }}" hidden>
+                    <input type="text" name="image" value="{{ results[key][1] }}" hidden>
+                    
+                    <!-- this statement hides this section from guests browsing event search results  -->
+                    <div class="relevant-items d-flex">
+                        {% if "current_user" in session %}
+                            <select name="plans" class="dropdown-items">
+                                {% for plan in user_plans %}
+                                    <option value="{{ plan.plan_id }}">
+                                        {% if plan.overview == None %}
+                                            Untitled
+                                        {% else %}
+                                            {{ plan.overview }}
+                                        {% endif %}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                            <input type="submit" value="add">
+                        {% endif %}  
+                    </div>
+                </form>
+            </div>
+        {% endfor %}
+    </ul>
 
-                <input type="text" name="overview" value="{{ key }}" hidden>
-                <input type="text" name="city" value="{{ results[key][3] }}" hidden>
-                <input type="text" name="datetime" value="{{ results[key][4] }}" hidden>
-                <input type="text" name="image" value="{{ results[key][1] }}" hidden>
-                
-                <!-- this statement hides this section from guests browsing event search results  -->
-                <div class="relevant-items">
-                    {% if "current_user" in session %}
-                        <select name="plans" class="dropdown-items">
-                            {% for plan in user_plans %}
-                                <option value="{{ plan.plan_id }}">
-                                    {% if plan.overview == None %}
-                                        Untitled
-                                    {% else %}
-                                        {{ plan.overview }}
-                                    {% endif %}
-                                </option>
-                            {% endfor %}
-                        </select>
-                        <input type="submit" value="add">
-                    {% endif %}  
-                </div>
-            </form>
-
-    {% endfor %}
-</ul>
+</div>
 
 {% endblock %}
 

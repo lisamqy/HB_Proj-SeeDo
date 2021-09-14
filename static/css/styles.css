@@ -1,11 +1,31 @@
 body {
-    background-color: rgba(132, 169, 189, 0.858);
-    font-family: Arial, Helvetica, sans-serif;
+    background: rgb(231, 238, 238);
+    font-family: 'Montserrat', sans-serif;
 }
 
-/* .header {
+.home-img {
+    background-image: url('/static/img/party.jpg');
+    background-size: cover;                      /* <------ */
+    background-repeat: no-repeat;
+    background-position: center;  
+}
+
+.white-section {
+    background-color: rgb(231, 245, 245);
+    padding: 1em;
+  }
+
+.center {
     text-align: center;
-} */
+}
+
+p {
+    color: #194a50;
+}
+
+span.white {
+    color: white;
+}
 
 .inline-button {
     padding: 0%;
@@ -24,7 +44,74 @@ body {
     color: red;
 }
 
-.tm-img {
-    max-width: 15%;
-    height: auto;
+.search-bar {
+    padding: 5em;
+    height: 15%;
 }
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ebfdff;
+  }
+
+.image {
+    position: relative;
+    width: 350px;
+}
+
+.image__img {
+    display: block;
+    width: 100%;
+}
+
+.image__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.50s;
+}
+
+.image__overlay--blur {
+    backdrop-filter: blur(10px);
+}
+
+.image__overlay > * {
+    transform: translateY(20px);
+    transition: transform 0.25s;
+}
+
+.image__overlay:hover {
+    opacity: 1;
+}
+
+.image__overlay:hover > * {
+    transform: translateY(0);
+}
+
+.image__title {
+    font-size: 1.5em;
+}
+
+.image__description {
+    font-size: 1.15em;
+    margin-top: 0.25em;
+} 
+
+likes {
+    display: inline-block;
+    list-style-type: "♡ ";
+    padding-inline-start: 1ch;
+  }

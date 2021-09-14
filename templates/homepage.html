@@ -4,70 +4,86 @@
 
 {% block content %}
 
-<h1>Hello</h1>
+<div class="home-img">
 
-<div>
-    {% if "current_user" not in session %}
-        <form action="/handle-login" method="POST">
-            <label>Email:</label>
-            <input type="text" name="email" required>
-            <label>Password:</label>
-            <input type="password" name="password" required>
-            <input type="submit" value="Login">
-        </form>  
-
-        <form class="login-user" action="/new">
-        <label>New User?</label>
-        <input type="submit" value="Register">
-        </form>
-    {% endif %}
-    {% if "current_user" in session %}
-        <h3>
-            Welcome, {{ user.username.title() }} 
-            <a href="/goodbye"><button>Logout</button></a>
-        </h3>
-        <a href="/user/{{ user.user_id }}">🗓 View your account details</a>
-    {% endif %}
-</div>
-<br>
-<div>
-    <!-- <span></span> -->
-    <form class="inline-button" action="/search">
-        <input type="submit" value="Search for events" name="search-button" id="search-button">
-        <select name="city">
-            {% for location in locations %}
-                <option value="{{ location.cityname }}">{{ location.cityname }}</option>
-            {% endfor %}
-        </select>
-        <input type="text" name="keyword" placeholder="keyword">
-        <input type="date" name="date" placeholder="yyyy-mm-dd">
-    </form>
-</div>
-
-<hr class="div-line"></hr>
-
-<div id="home-events-section">
-    <div class="liked-response"></div>
-    <div class="event-item">
-        {% for event in events %}
-            <a href="/event/{{ event.event_id }}">
-                {{ event.overview }}
+    <!-- NAVBAR -->
+    <nav class="navbar sticky-top navbar-light bg-light bg-opacity-100">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <sub><i class="material-icons">home</i></sub>Home
             </a>
-            💖
-            <span id="like-counter">
-                {{ likes[loop.index-1] }}
-            </span>
-            <br>
-            {% if event.image %}
-                <img class="tm-img" src="{{ event.image }}" alt="image of event">
-            {% endif %}
-            <br>
-        {% endfor %}   
+            <div>
+                {% if "current_user" not in session %}
+                    <form action="/handle-login" method="POST">
+                        <label class="col-form-label">Email</label>
+                        <input type="text" name="email" required>
+                        <label class="col-form-label">Password</label>
+                        <input type="password" name="password" required>
+                        <input type="submit" value="Login">
+                        <span id="new-user" class="form-text">
+                            <a href="/new">Sign Up</a>
+                        </span>
+                    </form>  
+                {% endif %}
+                {% if "current_user" in session %}
+                    Welcome, {{ user.username.title() }}
+                    <a href="/user/{{ user.user_id }}">View Account</a>
+                    <sub class="navbar-brand"><i class="material-icons">account_circle</i></sub>
+                    <a href="/goodbye">Logout</a>
+                    <sub class="navbar-brand"><i class="material-icons">logout</i></sub>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <br>
+
+    <!-- SEARCH BAR -->
+    <div id="search-bar" class="search-bar">
+        <form class="d-flex justify-content-center" action="/search">
+            <select name="city">
+                {% for location in locations %}
+                    <option value="{{ location.cityname }}">{{ location.cityname }}</option>
+                {% endfor %}
+            </select>
+            <input type="text" name="keyword" placeholder="keyword">
+            <input type="date" name="date" placeholder="yyyy-mm-dd">
+            <input class="btn btn-outline-light btn-lg" type="submit" value="Search for events" name="search-button" id="search-button">
+        </form>
     </div>
-    
 
+    <hr class="div-line"></hr>
+
+    <div id="home-events-section" class="container-fluid">
+        <div class="event-item row align-items-start">
+            {% for event in events %}
+                <div class="image">
+                    {% if event.image %}
+                        <img class="image__img img-thumbnail rounded" src="{{ event.image }}" alt="image of event">
+                    {% else %}
+                        <img class="image__img img-thumbnail rounded" src="static/img/event.jpeg" alt="default image of event">
+                    {% endif %}
+                    <!-- IMAGE OVERLAY TEXT & EFFECT -->
+                    <div class="image__overlay image__overlay--blur">
+                        <div class="image__title">
+                            <sub><i class="material-icons">favorite</i></sub>
+                            <span id="like-counter">
+                                {{ likes[loop.index-1] }}
+                            </span>
+                        </div>
+                        <p class="image__description">
+                            <a href="/event/{{ event.event_id }}">
+                                {{ event.overview }}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}   
+        </div>
+    </div>
+
+    <br><br><br>
 </div>
-
 
 
 {% endblock %}

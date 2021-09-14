@@ -4,88 +4,88 @@
 
 {% block content %}
 
-<h2>✨Plan id# <span id="plan_id">{{ plan.plan_id }}</span>✨</h2>
-
-<h3>
-    Overview: 
-    {% if plan.overview == None %}
-        Untitled
-    {% else %}
-        {{ plan.overview }}
-    {% endif %}
-    <span class="edit-plan-overview">
-        <input type="button" value="edit" name="btnEditOverview"/>
-    </span>
-    <div id="dvEditOverview" class="hide">
-        <form action="/plan/{{ plan.plan_id }}/overview" method="POST">
-            <input type="textarea" name="txtEditOverview" re>
-            <input type="submit" value="+">
-        </form>
+<nav class="navbar sticky-top navbar-light bg-light bg-opacity-75">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <sub><i class="material-icons">home</i></sub>Home
+        </a>
+        <div>
+            <a href="/user/{{ plan.user_id }}">View Account</a>
+            <sub class="navbar-brand"><i class="material-icons">account_circle</i></sub>
+            <a href="/goodbye">Logout</a>
+            <sub class="navbar-brand"><i class="material-icons">logout</i></sub>
+        </div>
     </div>
-</h3>
-
-<p>- Location: {{ location[0] }}, {{ location[1] }}</p>
-<p>- Event details:
-    <ol id="event-list">
-        {% for event in events %}
-            <li id="li{{ event.event_id }}">
-                <button class="del-event-from-plan-btn" value="{{ event.event_id }}">-</button>
-                <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 📅 [{{ event.datetime.strftime('%d, %b %Y') }}]
-            </li>
-        {% endfor %}
-    </ol>
-
-</p>
-
-<!-- TO BE IMPLEMENTED -->
-<!-- <form action="/plan/{{ plan.plan_id }}" method="POST">
-    <input type="text" id="event-item">
-    <button id="event-adder">Custom event</button> 
-</form> -->
-<!-- MVP FEATURE -->
-<div class="relevant-items">
-    <form action="/plan/{{ plan.plan_id }}" method="POST">
-        <select name="dropdown-event" class="dropdown-items">
-            {% for item in db_events %}
-                {% if item not in events %} <!--checks only for events not already on plan list-->
-                    {% if plan.location_id == item.location_id %}
-                        <option value="{{ item.event_id }}">{{ item.overview }}</option>
-                    {% endif %}
-                {% endif %}  
-            {% endfor %}
-        </select>
-        <button id="dropdown-event-adder">Add event</button> 
-    </form>
-</div>
-<div class="no-relevant-items hide">
-    <a href="/">
-        <button>Search for events</button>
-    </a>
-</div>
-
+</nav>
 
 <br>
 
-<!-- Delete Plan Button -->
-<div>
-    <form action="/plan/{{ plan.plan_id }}/delete" method="POST">
-        <input class="makered" type="submit" value="Delete Plan">
-    </form>
+<h3>✨Plan id# <span id="plan_id">{{ plan.plan_id }}</span>✨</h3>
+
+<div class="container-fluid">
+    <h5>
+        Overview: 
+        {% if plan.overview == None %}
+            Untitled
+        {% else %}
+            {{ plan.overview }}
+        {% endif %}
+        <span class="edit-plan-overview">
+            <input type="button" value="edit" name="btnEditOverview"/>
+        </span>
+        <div id="dvEditOverview" class="hide">
+            <form action="/plan/{{ plan.plan_id }}/overview" method="POST">
+                <input type="text" name="txtEditOverview">
+                <input type="submit" value="+">
+            </form>
+        </div>
+    </h5>
 </div>
 
-<hr class="div-line">
 
+<div class="container-fluid">
+    <span>- Location: {{ location[0] }}, {{ location[1] }}</span>
+    <p>- Event details:
+        <ol id="event-list">
+            {% for event in events %}
+                <li id="li{{ event.event_id }}">
+                    <button class="del-event-from-plan-btn" value="{{ event.event_id }}">-</button>
+                    <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 📅 [{{ event.datetime.strftime('%d, %b %Y') }}]
+                </li>
+            {% endfor %}
+        </ol>
+    </p>
 
-<!-- Home/Back Buttons -->
-<div>
-    <a href="/">
-        <button>Home🏠</button>
-    </a>
+    <!-- MVP FEATURE -->
+    <div class="relevant-items">
+        <form class="d-flex" action="/plan/{{ plan.plan_id }}" method="POST">
+            <select name="dropdown-event" class="dropdown-items">
+                {% for item in db_events %}
+                    {% if item not in events %} <!--checks only for events not already on plan list-->
+                        {% if plan.location_id == item.location_id %}
+                            <option value="{{ item.event_id }}">{{ item.overview }}</option>
+                        {% endif %}
+                    {% endif %}  
+                {% endfor %}
+            </select>
+            <button id="dropdown-event-adder">Add event</button> 
+        </form>
+    </div>
+    <div class="no-relevant-items hide">
+        <a href="/">
+            <button>Search for events</button>
+        </a>
+    </div>
+
     <br>
-    <a href="/user/{{ plan.user_id }}">
-        <button>Go back!</button>
-    </a>
+
+    <!-- Delete Plan Button -->
+    <div>
+        <form action="/plan/{{ plan.plan_id }}/delete" method="POST">
+            <input class="makered" type="submit" value="Delete Plan">
+        </form>
+    </div>
 </div>
-    
+
 
 {% endblock %}
