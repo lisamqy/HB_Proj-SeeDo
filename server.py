@@ -188,12 +188,25 @@ def event_page(event_id):
     #check if user logged in, so we can then see if they've already liked the current event to decide which like button to show...
     if "current_user" in session: 
         user_id = session["current_user"]
+        user_plans = crud.get_plans(user_id)
         like_count = crud.has_liked(user_id,event_id)
     #...if not logged in, guest will only see the liked #
     else:
-        like_count = 1    
+        like_count = 1  
+        user_plans = None  
 
-    return render_template("eventdetails.html", event=event, location=location, likes=likes, like_count=like_count)
+    return render_template("eventdetails.html", event=event, location=location, user_plans=user_plans, likes=likes, like_count=like_count)
+
+@app.route("/event/<event_id>/add", methods=['POST'])
+def add_event_to_plan(event_id):
+    """Adds current event to a user's plan"""
+
+    event_id = event_id
+    plan_id = request.form.get("plans")
+    crud.add_plan_events(plan_id=plan_id, event_id=event_id)
+    print(f'\n\n{event_id},{plan_id}\n\n')
+
+    return redirect(f"/plan/{plan_id}")
 
 
 @app.route("/search")

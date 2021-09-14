@@ -21,7 +21,7 @@
 
 <br>
 
-<div class="container-fluid">
+<div class="container-fluid center">
     <h4>Created plans list</h4>
         {% for plan in plans %}
             <ol class="inline-button">
@@ -37,7 +37,7 @@
             </ol>
         {% endfor %}
         <br><br>
-        <form class="d-flex" action="/user/{{ user.user_id }}" method="POST">
+        <form class="d-flex justify-content-center" action="/user/{{ user.user_id }}" method="POST">
             <select name="citynames" id="city-select">
                 {% for place in all_locations %}
                     <option value="{{ place.location_id }}">{{ place.cityname }}</option>
@@ -50,18 +50,19 @@
 <hr>
 
 <div class="container-fluid">
-    <h4>Liked event list</h4>
-        <likes> 
+    <div class="row align-items-start">
+
+        <h4>Liked event list</h4>
             {% for event in event_list %}
                 <!-- <li><a href="/event/{{ event.event_id }}">{{ event.image }}</li></a> -->
-                <div class="image">
+                <div class="image column">
                     {% if event.image %}
                         <img class="image__img img-thumbnail rounded" src="{{ event.image }}" alt="image of event">
                     {% else %}
                         <img class="image__img img-thumbnail rounded" src="static/img/event.jpeg" alt="default image of event">
                     {% endif %}
                     <div class="image__overlay image__overlay--blur">
-                        <p class="image__description">
+                        <p class="image__description center">
                             <a href="/event/{{ event.event_id }}">
                                 {{ event.overview }}
                             </a>
@@ -69,7 +70,7 @@
                     </div>
                 </div>
             {% endfor %}
-        </likes>
+    </div>
 </div>
 
 <br><br><br>

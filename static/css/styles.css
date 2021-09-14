@@ -1,6 +1,7 @@
 body {
     background: rgb(231, 238, 238);
     font-family: 'Montserrat', sans-serif;
+    font-weight: lighter;
 }
 
 .home-img {
@@ -11,7 +12,7 @@ body {
 }
 
 .white-section {
-    background-color: rgb(231, 245, 245);
+    background-color: rgb(241, 245, 245);
     padding: 1em;
   }
 
@@ -56,6 +57,11 @@ a {
 a:hover {
     color: #ebfdff;
   }
+
+.column {
+    float: left;
+    padding: 5px;
+}
 
 .image {
     position: relative;

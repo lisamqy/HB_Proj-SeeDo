@@ -10,10 +10,8 @@
             <sub><i class="material-icons">home</i></sub>Home
         </a>
         <div>
-            <a href="javascript:history.back()">View Account</a>
-            <sub class="navbar-brand"><i class="material-icons">account_circle</i></sub>
-            <a href="/goodbye">Logout</a>
-            <sub class="navbar-brand"><i class="material-icons">logout</i></sub>
+            <a href="javascript:history.back()">Go Back</a>
+            <sub class="navbar-brand"><i class="material-icons">arrow_back</i></sub>
         </div>
     </div>
 </nav>
@@ -46,6 +44,29 @@
     {% else %}
         <img class="image__img img-thumbnail rounded" src="static/img/event.jpeg" alt="default image of event">
     {% endif %}
+
+    <br>
+
+    <form action="/event/{{ event.event_id }}/add" method="POST">
+        <!-- this jinja statement hides this section from guests browsing event search results  -->
+        <div class="relevant-items d-flex">
+            {% if "current_user" in session %}
+                <select name="plans" class="dropdown-items">
+                    {% for plan in user_plans %}
+                        <option value="{{ plan.plan_id }}">
+                            {% if plan.overview == None %}
+                                Untitled
+                            {% else %}
+                                {{ plan.overview }}
+                            {% endif %}
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="add">
+            {% endif %}  
+        </div>
+    </form>
+    
 
     <br><br><br>
 

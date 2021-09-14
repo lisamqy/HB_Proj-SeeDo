@@ -55,9 +55,9 @@
     <hr class="div-line"></hr>
 
     <div id="home-events-section" class="container-fluid">
-        <div class="event-item row align-items-start">
+        <div class="event-item row align-items-start justify-content-center">
             {% for event in events %}
-                <div class="image">
+                <div class="image column">
                     {% if event.image %}
                         <img class="image__img img-thumbnail rounded" src="{{ event.image }}" alt="image of event">
                     {% else %}
@@ -71,7 +71,7 @@
                                 {{ likes[loop.index-1] }}
                             </span>
                         </div>
-                        <p class="image__description">
+                        <p class="image__description center">
                             <a href="/event/{{ event.event_id }}">
                                 {{ event.overview }}
                             </a>
