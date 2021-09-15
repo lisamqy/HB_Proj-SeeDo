@@ -4,6 +4,7 @@
 
 {% block content %}
 
+<div class="dark-bg-light">
 
     <nav class="navbar navbar-custom sticky-top">
         <div class="container-fluid">
@@ -55,8 +56,9 @@
 
     <!-- USER'S LIKED EVENTS LIST -->
     <div class="container-fluid center">
-        <h2 class="neonText">Liked events ↔</h2>
-        <div class="horizontal-scroll" title="hover over image to scroll left or right">
+        <h2 class="neonText">Liked events</h2>
+        <dd class="neonText">Hover over image to scroll left or right.</dd>
+        <div class="horizontal-scroll">
             {% for event in event_list %}
                 <div class="image scroll-column">
                     {% if event.image %}
@@ -65,7 +67,7 @@
                         <img class="image__img img-thumbnail rounded" src="static/img/event.jpeg" alt="default image of event">
                     {% endif %}
                     <div class="image__overlay image__overlay--blur">
-                        <p class="image__description center">
+                        <p class="image__description center word-clip">
                             <a class="light" href="/event/{{ event.event_id }}" title="{{ event.overview }}">
                                 {{ event.overview }}
                             </a>
@@ -78,4 +80,5 @@
 
     <br><br><br>
 
+</div>
 {% endblock %}

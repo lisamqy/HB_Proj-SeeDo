@@ -59,7 +59,7 @@
             <!-- MVP FEATURE -->
             <div class="relevant-items">
                 <form class="d-flex justify-content-center" action="/plan/{{ plan.plan_id }}" method="POST">
-                    <select class="form-select" name="dropdown-event" class="dropdown-items">
+                    <select class="form-select dropdown-items" name="dropdown-event">
                         {% for item in db_events %}
                             {% if item not in events %} <!--checks only for events not already on plan list-->
                                 {% if plan.location_id == item.location_id %}
