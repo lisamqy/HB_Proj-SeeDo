@@ -25,24 +25,30 @@
 
     <br><br>
 
-    <div>
-        <h2 class="center">Register Here!</h2>
+    <div class="container-fluid pretty-box image__overlay--blur center">
+        <h1 class="neonText">Register Here!</h1>
 
         <div class="center">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <br>
+        <div class="d-flex justify-content-center">
             <form action="/new" method="POST">
-            <div class="mb-2">
-                <label class="form-label">Username</label><br>
-                <input type="text" name="username" required><br>
-            </div>
-            <div class="mb-2">
-                <label class="form-label">Email</label><br>
-                <input type="text" name="email" required><br>
-            </div>
-                <div class="mb-2">
-                <label class="form-label">Password</label><br>
-                <input type="password" name="password" required><br><br>
-            </div>
-            <input type="submit" class="btn btn-light" value="Submit"><br><br>
+                <label class="form-label">Username</label>
+                <input class="form-control" type="text" name="username" required><br>
+                <label class="form-label">Email</label>
+                <input class="form-control" type="text" name="email" required><br>
+                <label class="form-label">Password</label>
+                <input class="form-control" type="password" name="password" required><br><br>
+                <input type="submit" class="btn btn-outline-light" value="Submit"><br><br>
             </form>
         </div>
     </div> 

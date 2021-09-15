@@ -36,24 +36,31 @@
         </div>
     </nav>
 
-    <br>
+    <div class="flash-msg">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                    {% for message in messages %}
+                        <span class="shadow-sm p-1 bg-body bg-opacity-75 rounded">{{ message }}</span>
+                    {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+        
 
     <!-- SEARCH BAR -->
     <div id="search-bar" class="search-bar">
         <form class="d-flex justify-content-center" action="/search">
-            <select name="city">
+            <select class="form-select" name="city">
                 {% for location in locations %}
                     <option value="{{ location.cityname }}">{{ location.cityname }}</option>
                 {% endfor %}
             </select>
-            <input type="text" name="keyword" placeholder="keyword">
+            <input class="form-control" type="text" name="keyword" placeholder="keyword">
             <input type="date" name="date" placeholder="yyyy-mm-dd">
             <input class="btn btn-outline-light btn-lg" type="submit" value="Search for events" name="search-button" id="search-button">
         </form>
     </div>
-
-    <hr class="div-line"></hr>
-
 
     <!-- GENERATED EVENTS FROM DB -->
     <div id="home-events-section" class="container-fluid">

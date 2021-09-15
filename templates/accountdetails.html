@@ -24,8 +24,9 @@
 
     <br>
 
-    <div class="container-fluid center">
-        <h4>Created plans list</h4>
+    <div class="container-fluid pretty-box center">
+        <h2 class="neonText">My Plans</h2>
+        <br>
             {% for plan in plans %}
                 <ol class="inline-button">
                     <a href="/plan/{{ plan.plan_id }}">
@@ -41,20 +42,21 @@
             {% endfor %}
             <br><br>
             <form class="d-flex justify-content-center" action="/user/{{ user.user_id }}" method="POST">
-                <select name="citynames" id="city-select">
+                <select class="form-select" name="citynames" id="city-select">
                     {% for place in all_locations %}
                         <option value="{{ place.location_id }}">{{ place.cityname }}</option>
                     {% endfor %}
                 </select>
-                <input type="submit" value="Create plan">
+                <input type="submit" class="btn btn-outline-light" value="Create plan">
             </form>
     </div>
 
     <hr>
 
+    <!-- USER'S LIKED EVENTS LIST -->
     <div class="container-fluid center">
-        <h4>Liked event list</h4>
-        <div class="horizontal-scroll">
+        <h2 class="neonText">Liked events ↔</h2>
+        <div class="horizontal-scroll" title="hover over image to scroll left or right">
             {% for event in event_list %}
                 <div class="image scroll-column">
                     {% if event.image %}

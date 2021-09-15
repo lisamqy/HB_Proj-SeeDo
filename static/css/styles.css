@@ -1,7 +1,5 @@
 body {
-    /* background: rgb(239, 241, 241); */
     font-family: 'Montserrat', sans-serif;
-    font-weight: lighter;
     background-image: url('/static/img/party.jpg');
     background-size: cover;                     
     background-repeat: no-repeat;
@@ -16,16 +14,25 @@ input {
     margin: 0 3px 0;
 }
 
+a {
+    text-decoration: none;
+    color: rgb(87, 150, 201);
+}
+    a:hover {
+        color: whitesmoke;
+        text-decoration: underline;
+    }
+
 .navbar-custom {
     background-color: #120e15;
     opacity: 75%;
 }
 
-.pretty_entry {
+.pretty-box {
 	border-style: solid;
 	border-width: 2px;
-	background-color: rgba(255,255,255,.2);
-	border-color: rgba(255,255,255,.6);
+	background-color: rgba(16, 17, 36, 0.55);
+	border-color: rgba(255, 255, 255, 0.427);
 	border-radius: 10px;
 	padding: 15px;
 	width: 500px;
@@ -36,12 +43,6 @@ input {
     background-size: 10%;
     background: linear-gradient(0deg, rgba(42,58,69,0.7399334733893557) 0%, rgba(38,39,68,0.9500175070028011) 15%, rgba(28,27,46,1) 25%, rgba(18,14,21,1) 58%);
 }
-
-.footer-section {
-    background-color: #120e15;
-    padding-top: .5rem;
-    padding-bottom: 2.5rem;    
-  }
 
 .center {
     text-align: center;
@@ -60,9 +61,19 @@ input {
     background-color: gray;
 }
 
+.flash-msg {
+    position: absolute;
+}
+
 .search-bar {
     padding: 5em;
     height: 15%;
+    margin: 3.5%;
+}
+
+.form-select, .form-control {
+    width: auto;
+    margin: 0 3px 0;
 }
 
 i.material-icons {
@@ -76,74 +87,67 @@ i.material-icons {
     color: rgb(35, 33, 48);
 }
 
-a {
-    text-decoration: none;
-    color: rgb(87, 150, 201);
+.neonText {
+    color: #fff;
+    text-shadow:
+        0 0 7px rgb(255, 255, 255),
+        0 0 10px rgb(0, 0, 0),
+        0 0 21px rgb(56, 153, 227),
+        0 0 42px rgb(0, 115, 255),
+        0 0 92px rgb(0, 115, 255),
+        0 0 102px rgb(0, 115, 255)
+  }
+
+h2.neonText {
+    font-family: "Vibur", sans-serif;
+    font-size: 3rem;
 }
-
-    a:hover {
-        color: whitesmoke;
-        text-decoration: underline;
-    }
-/* 
-    a:hover {
-        color:  #2d3f41;
-    } */
-
 
 .image {
     position: relative;
     width: 350px;
     padding: 5px;
 }
-
     .image__img {
         display: block;
         width: 100%;
     }
-
-.image__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    color: #ffffff;
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.50s;
-}
-
-    .image__overlay--blur {
-        backdrop-filter: blur(10px);
+    .image__overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        color: #ffffff;
+        font-family: 'Montserrat', sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.50s;
     }
-
+    .image__overlay--blur {
+        backdrop-filter: blur(7px);
+    }
     .image__overlay > * {
         transform: translateY(20px);
         transition: transform 0.25s;
     }
-
     .image__overlay:hover {
         opacity: 1;
     }
-
     .image__overlay:hover > * {
         transform: translateY(0);
 }
-
-.image__title {
-    font-size: 1.5em;
-}
-
-.image__description {
-    font-size: 1.15em;
-    margin-top: 0.25em;
-} 
+    .image__title {
+        font-size: 1.5em;
+    }
+    .image__description {
+        font-size: 1.15em;
+        margin-top: 0.25em;
+    } 
 
 .horizontal-scroll{
     width: auto;
@@ -152,11 +156,20 @@ a {
     overflow-y: hidden;
     white-space: nowrap;
 }
-
     .image.scroll-column {
         display: inline-block;
         vertical-align: bottom;
         padding: 0px;
+    }
+    ::-webkit-scrollbar {
+        width: 0px;
+        background: transparent; /* make scrollbar transparent */
+    }
+
+.footer-section {
+    background-color: #120e15;
+    padding-top: .5rem;
+    padding-bottom: 2.5rem;    
     }
 
 

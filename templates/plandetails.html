@@ -21,74 +21,78 @@
 
     <br>
 
-    <h2 class="center">✨Plan id# <span id="plan_id">{{ plan.plan_id }}</span>✨</h2>
+    <div class="container-fluid pretty-box image__overlay--blur justify-content-center">
+        
+        <h5 class="center neonText">✨Plan id# <span id="plan_id">{{ plan.plan_id }}</span>✨</h5>
 
-    <div class="container-fluid center">
-        <h4>
-            Overview: 
-            {% if plan.overview == None %}
-                Untitled
-            {% else %}
-                {{ plan.overview }}
-            {% endif %}
-            <div id="dvEditOverview" class="hide">
-                <form action="/plan/{{ plan.plan_id }}/overview" method="POST">
-                    <input type="text" name="txtEditOverview" placeholder="Edit Overview">
-                    <input class="btn btn-outline-light btn-sm" type="submit" value="update">
+        <!-- PLAN OVERVIEW DETAILS -->
+        <div class="container-fluid center">
+            <h1>
+                {% if plan.overview == None %}
+                    Untitled
+                {% else %}
+                    {{ plan.overview }}
+                {% endif %}
+                <div id="dvEditOverview" class="hide">
+                    <form class="d-flex justify-content-center" action="/plan/{{ plan.plan_id }}/overview" method="POST">
+                        <input class="form-control" type="text" name="txtEditOverview" placeholder="Edit Name">
+                        <input class="btn btn-outline-light btn-sm" type="submit" value="update">
+                    </form>
+                </div>
+            </h1>
+        </div>
+
+        <div class="container-fluid center">
+            <p>[ Location: {{ location[0] }}, {{ location[1] }} ]</p>
+            <p>Event details:
+                <hr>
+                <dl id="event-list">
+                    {% for event in events %}
+                        <dd id="li{{ event.event_id }}" class="whitesmoke">
+                            <button class="del-event-from-plan-btn btn btn-outline-danger btn-sm hide" value="{{ event.event_id }}">ⅹ</button>
+                            <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 📅 [{{ event.datetime.strftime('%d, %b %Y') }}]
+                        </dd>
+                    {% endfor %}
+                </dl>
+            </p>
+
+            <!-- MVP FEATURE -->
+            <div class="relevant-items">
+                <form class="d-flex justify-content-center" action="/plan/{{ plan.plan_id }}" method="POST">
+                    <select class="form-select" name="dropdown-event" class="dropdown-items">
+                        {% for item in db_events %}
+                            {% if item not in events %} <!--checks only for events not already on plan list-->
+                                {% if plan.location_id == item.location_id %}
+                                    <option value="{{ item.event_id }}">{{ item.overview }}</option>
+                                {% endif %}
+                            {% endif %}  
+                        {% endfor %}
+                    </select>
+                    <button id="dropdown-event-adder" class="btn btn-light btn-sm">Add event</button> 
                 </form>
             </div>
-        </h4>
+            <div class="no-relevant-items hide">
+                <a href="/">
+                    <button>Search for events</button>
+                </a>
+            </div>
+
+            <br>
+
+            <!-- Edit/Delete Plan Button -->
+            <div class="center">
+                <span class="edit-plan-content">
+                    <input class="btn btn-outline-light btn-sm" type="button" value="Edit Plan" name="btnEditOverview"/>
+                </span>
+                <form class="inline-button" action="/plan/{{ plan.plan_id }}/delete" method="POST">
+                    <input class="btn btn-danger btn-sm" type="submit" value="Delete Plan">
+                </form>
+            </div>
+
+        </div>
     </div>
 
-    <br>
-
-    <div class="container-fluid center">
-        <p>- Location: {{ location[0] }}, {{ location[1] }}</p>
-        <p>- Event details:
-            <ol id="event-list">
-                {% for event in events %}
-                    <li id="li{{ event.event_id }}" class="whitesmoke">
-                        <button class="del-event-from-plan-btn btn btn-outline-danger btn-sm hide" value="{{ event.event_id }}">ⅹ</button>
-                        <a href="/event/{{ event.event_id }}">{{ event.overview }}</a> 📅 [{{ event.datetime.strftime('%d, %b %Y') }}]
-                    </li>
-                {% endfor %}
-            </ol>
-        </p>
-
-        <!-- MVP FEATURE -->
-        <div class="relevant-items">
-            <form class="d-flex justify-content-center" action="/plan/{{ plan.plan_id }}" method="POST">
-                <select name="dropdown-event" class="dropdown-items">
-                    {% for item in db_events %}
-                        {% if item not in events %} <!--checks only for events not already on plan list-->
-                            {% if plan.location_id == item.location_id %}
-                                <option value="{{ item.event_id }}">{{ item.overview }}</option>
-                            {% endif %}
-                        {% endif %}  
-                    {% endfor %}
-                </select>
-                <button id="dropdown-event-adder" class="btn btn-light btn-sm">Add event</button> 
-            </form>
-        </div>
-        <div class="no-relevant-items hide">
-            <a href="/">
-                <button>Search for events</button>
-            </a>
-        </div>
-
-        <br>
-
-        <!-- Edit/Delete Plan Button -->
-        <div class="center">
-            <span class="edit-plan-content">
-                <input class="btn btn-outline-light btn-sm" type="button" value="Edit Plan" name="btnEditOverview"/>
-            </span>
-            <form class="inline-button" action="/plan/{{ plan.plan_id }}/delete" method="POST">
-                <input class="btn btn-danger btn-sm" type="submit" value="Delete Plan">
-            </form>
-        </div>
-
-    </div>
+    
 
     <br><br>
 
