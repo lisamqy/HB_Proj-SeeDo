@@ -28,6 +28,10 @@ def get_user_by_email(email):
 
     return User.query.filter(User.email==email).first()
 
+def check_email_in_db(email):
+    """Check if the email exists in our database."""  
+
+    return User.query.filter(User.email==email).count()    
 
 def add_like(user_id,event_id):
     """Add a like to an event."""

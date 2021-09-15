@@ -166,11 +166,6 @@ h2.neonText {
         background: transparent; /* make scrollbar transparent */
     }
 
-.footer-section {
-    background-color: #120e15;
-    padding-top: .5rem;
-    padding-bottom: 2.5rem;    
-    }
 
 
 #search-result-item {

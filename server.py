@@ -88,9 +88,10 @@ def create_user():
     username = request.form["username"]
     email = request.form["email"]
     password = request.form["password"] 
-    if crud.get_user_by_email(email) == False:
+    if crud.check_email_in_db(email) < 1:
         #communicates with db to add in new user
         crud.create_user(username, email, password) 
+        flash("Success! Please log in.")
     else:
         flash("Email already in use, please try another.")
         return redirect("/new")
