@@ -4,73 +4,76 @@
 
 {% block content %}
 
-<nav class="navbar sticky-top navbar-light bg-light bg-opacity-75">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-            <sub><i class="material-icons">home</i></sub>Home
-        </a>
-        <div>
-            Welcome, {{ user.username.title() }} 
-            <a class="navb" href="/user/{{ user.user_id }}">View Account</a>
-            <sub class="navbar-brand"><i class="material-icons">account_circle</i></sub>
-            <a class="navb" href="/goodbye">Logout</a>
-            <sub class="navbar-brand"><i class="material-icons">logout</i></sub>
+
+    <nav class="navbar navbar-custom sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand light" href="/">
+                <sub><i class="material-icons">home</i></sub>Home
+            </a>
+            <div>
+                <span class="whitesmoke">
+                    Welcome, {{ user.username.title() }} 
+                </span>
+                <a class="light" href="/user/{{ user.user_id }}">View Account</a>
+                <sub><i class="material-icons">account_circle</i></sub>
+                <a class="light" href="/goodbye">Logout</a>
+                <sub><i class="material-icons">logout</i></sub>
+            </div>
+        </div>
+    </nav>
+
+    <br>
+
+    <div class="container-fluid center">
+        <h4>Created plans list</h4>
+            {% for plan in plans %}
+                <ol class="inline-button">
+                    <a href="/plan/{{ plan.plan_id }}">
+                        <button class="btn btn-outline-light">
+                            {% if plan.overview == None %}
+                                Untitled
+                            {% else %}
+                                {{ plan.overview }}
+                            {% endif %}
+                        </button>
+                    </a>
+                </ol>
+            {% endfor %}
+            <br><br>
+            <form class="d-flex justify-content-center" action="/user/{{ user.user_id }}" method="POST">
+                <select name="citynames" id="city-select">
+                    {% for place in all_locations %}
+                        <option value="{{ place.location_id }}">{{ place.cityname }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Create plan">
+            </form>
+    </div>
+
+    <hr>
+
+    <div class="container-fluid center">
+        <h4>Liked event list</h4>
+        <div class="horizontal-scroll">
+            {% for event in event_list %}
+                <div class="image scroll-column">
+                    {% if event.image %}
+                        <img class="image__img img-thumbnail rounded" src="{{ event.image }}" alt="image of event">
+                    {% else %}
+                        <img class="image__img img-thumbnail rounded" src="static/img/event.jpeg" alt="default image of event">
+                    {% endif %}
+                    <div class="image__overlay image__overlay--blur">
+                        <p class="image__description center">
+                            <a class="light" href="/event/{{ event.event_id }}" title="{{ event.overview }}">
+                                {{ event.overview }}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
-</nav>
 
-<br>
-
-<div class="container-fluid center">
-    <h4>Created plans list</h4>
-        {% for plan in plans %}
-            <ol class="inline-button">
-                <a href="/plan/{{ plan.plan_id }}">
-                    <button class="btn btn-outline-dark">
-                        {% if plan.overview == None %}
-                            Untitled
-                        {% else %}
-                            {{ plan.overview }}
-                        {% endif %}
-                    </button>
-                </a>
-            </ol>
-        {% endfor %}
-        <br><br>
-        <form class="d-flex justify-content-center" action="/user/{{ user.user_id }}" method="POST">
-            <select name="citynames" id="city-select">
-                {% for place in all_locations %}
-                    <option value="{{ place.location_id }}">{{ place.cityname }}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="Create plan">
-        </form>
-</div>
-
-<hr>
-
-<div class="container-fluid center">
-    <h4>Liked event list</h4>
-    <div class="horizontal-scroll">
-        {% for event in event_list %}
-            <div class="image scroll-column">
-                {% if event.image %}
-                    <img class="image__img img-thumbnail rounded" src="{{ event.image }}" alt="image of event">
-                {% else %}
-                    <img class="image__img img-thumbnail rounded" src="static/img/event.jpeg" alt="default image of event">
-                {% endif %}
-                <div class="image__overlay image__overlay--blur">
-                    <p class="image__description center">
-                        <a href="/event/{{ event.event_id }}">
-                            {{ event.overview }}
-                        </a>
-                    </p>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-</div>
-
-<br><br><br>
+    <br><br><br>
 
 {% endblock %}

@@ -4,33 +4,33 @@
 
 {% block content %}
 
-<div class="home-img">
-
     <!-- NAVBAR -->
-    <nav class="navbar sticky-top navbar-light bg-light bg-opacity-100">
+    <nav class="navbar navbar-custom sticky-top border-bottom border-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand light" href="/">
                 <sub><i class="material-icons">home</i></sub>Home
             </a>
             <div>
                 {% if "current_user" not in session %}
                     <form action="/handle-login" method="POST">
-                        <label class="col-form-label">Email</label>
+                        <label class="col-form-label light">Email</label>
                         <input type="text" name="email" required>
-                        <label class="col-form-label">Password</label>
+                        <label class="col-form-label light">Password</label>
                         <input type="password" name="password" required>
-                        <input class="btn btn-outline-dark btn-sm" type="submit" value="Login">
+                        <input class="btn btn-outline-light btn-sm" type="submit" value="Login">
                         <span id="new-user" class="form-text">
-                            <a class="navb" href="/new">Sign Up</a>
+                            <a href="/new">Sign Up</a>
                         </span>
                     </form>  
                 {% endif %}
                 {% if "current_user" in session %}
-                    Welcome, {{ user.username.title() }}
-                    <a class="navb" href="/user/{{ user.user_id }}">View Account</a>
-                    <sub class="navbar-brand"><i class="material-icons">account_circle</i></sub>
-                    <a class="navb" href="/goodbye">Logout</a>
-                    <sub class="navbar-brand"><i class="material-icons">logout</i></sub>
+                    <span class="whitesmoke">
+                        Welcome, {{ user.username.title() }} 
+                    </span>
+                    <a class="light" href="/user/{{ user.user_id }}">View Account</a>
+                    <sub><i class="material-icons">account_circle</i></sub>
+                    <a class="light" href="/goodbye">Logout</a>
+                    <sub><i class="material-icons">logout</i></sub>
                 {% endif %}
             </div>
         </div>
@@ -54,6 +54,8 @@
 
     <hr class="div-line"></hr>
 
+
+    <!-- GENERATED EVENTS FROM DB -->
     <div id="home-events-section" class="container-fluid">
         <div class="event-item row align-items-start justify-content-center">
             {% for event in events %}
@@ -72,7 +74,7 @@
                             </span>
                         </div>
                         <p class="image__description center">
-                            <a href="/event/{{ event.event_id }}">
+                            <a class="homepg" href="/event/{{ event.event_id }}">
                                 {{ event.overview }}
                             </a>
                         </p>
@@ -83,7 +85,6 @@
     </div>
 
     <br><br><br>
-</div>
 
 
 {% endblock %}
