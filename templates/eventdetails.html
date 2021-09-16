@@ -5,18 +5,29 @@
 {% block content %}
 
     <nav class="navbar navbar-custom sticky-top border-bottom border-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">
-                    <sub><i class="material-icons">home</i></sub>SeeDo
-                </a>
-                <div>
-                    <a class="light" href="javascript:history.back()">Go Back</a>
-                    <sub class="navbar-brand"><i class="material-icons">arrow_back</i></sub>
-                </div>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <sub><i class="material-icons">home</i></sub>SeeDo
+            </a>
+            <div>
+                <a class="light" href="javascript:history.back()">Go Back</a>
+                <sub class="navbar-brand"><i class="material-icons">arrow_back</i></sub>
             </div>
-        </nav>
+        </div>
+    </nav>
 
-        <br>
+    <br>
+
+    <div class="center">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                    {% for message in messages %}
+                        <span class="shadow-sm p-1 bg-body bg-opacity-75 rounded">{{ message }}</span>
+                    {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
 
     <div class="container-fluid pretty-box image__overlay--blur center">
 
