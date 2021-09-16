@@ -58,7 +58,6 @@ def get_user_liked(user_id):
 
     return Likes.query.filter_by(user_id=user_id).all()
 
-
 def create_location(zipcode, cityname, statename):
     """Create and return a new location."""
 
@@ -89,7 +88,6 @@ def get_loc_id_by_city(cityname):
     location = Location.query.filter_by(cityname=cityname).first()
     if location:
         return location.location_id
-
 
 def create_plan(user_id,location_id,overview=None):
     """Create and return a new plan."""
@@ -135,7 +133,6 @@ def get_location_by_planid(plan_id):
 
     return Plan.query.filter_by(plan_id=plan_id).one().location_id
 
-
 def create_event(location_id, overview=None, datetime=None, image=None):
     """Create and return a new event."""
 
@@ -170,7 +167,6 @@ def get_event_by_name(overview):
 
     return Event.query.filter_by(overview=overview).first().event_id    
 
-
 def create_theme(tag=None, overview=None):
     """Create and return a new theme."""
 
@@ -200,7 +196,6 @@ def check_plan_event_dupe(plan_id, event_id):
     """Get number of time the event id + plan id in the planevent table to prevent dupes."""
 
     return PlanEvent.query.filter_by(plan_id=plan_id, event_id=event_id).count()
-
 
 def del_from_planevent(event_id, plan_id):
     """Delete an event from current plan"""

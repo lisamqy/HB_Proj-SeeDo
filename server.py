@@ -80,7 +80,6 @@ def new_user():
 
     return render_template("register.html")
 
-
 @app.route("/new", methods=["POST"]) 
 def create_user():
     """Creates a new user for application"""
@@ -116,7 +115,6 @@ def user_page(user_id):
 
     return render_template("accountdetails.html", user=user, plans=plans, all_locations=all_locations, event_list=event_list)
 
-
 @app.route("/user/<user_id>", methods=["POST"])
 def add_plan(user_id):
     """Create a new plan"""
@@ -129,7 +127,7 @@ def add_plan(user_id):
 
 @app.route("/plan/<plan_id>")    
 def plan_page(plan_id):
-    """Show a specific plan's details"""
+    """Show a plan's details"""
 
     db_events = crud.get_events() #dropdown event items
     events = crud.get_events_associated_with_plan(plan_id) 
@@ -139,7 +137,6 @@ def plan_page(plan_id):
     location = crud.get_location_by_id(location_id)
 
     return render_template("plandetails.html", db_events=db_events, events=events, plan=plan, location=location)
-
 
 @app.route("/plan/<plan_id>", methods=["POST"])
 def add_event(plan_id):
@@ -211,7 +208,6 @@ def add_event_to_plan(event_id):
         flash("Event already in plan.")
         return redirect(f"/event/{event_id}")
 
-    print(f'\n\n{event_id},{plan_id}\n\n')
     return redirect(f"/plan/{plan_id}")
 
 
