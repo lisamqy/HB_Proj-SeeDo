@@ -4,81 +4,85 @@
 
 {% block content %}
 
-    <div class="dark-bg">
+<div class="dark-bg">
 
-        <nav class="navbar navbar-custom">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">
-                    <sub><i class="material-icons">home</i></sub>SeeDo
-                </a>
-                <div>
-                    <a href="javascript:history.back()">Go Back</a>
-                    <sub class="navbar-brand"><i class="material-icons">arrow_back</i></sub>
-                </div>
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <sub><i class="material-icons">home</i></sub>SeeDo
+            </a>
+            <div>
+                <a href="javascript:history.back()">Go Back</a>
+                <sub class="navbar-brand"><i class="material-icons">arrow_back</i></sub>
             </div>
-        </nav>
-
-        <br>
-
-        <div id="event-search-results" class="center whitesmoke">
-            <h2 class="neonText">Event Search Results</h2>
         </div>
+    </nav>
 
-        <br><br>
+    <br>
 
-        <div class="no-relevant-items whitesmoke hide center">
-            <p>Create a plan to start adding events!</p>
-        </div>
-
-        <div class="container-fluid center">
-                <div class="events-list">
-                {% for key in results.keys() %}
-                    <div id="search-result-item">
-                        <span>
-                            <a href="{{ results[key][0] }}" title="{{ key }}" target=”_blank” >
-                                {{ key }} 
-                                <sub><i class="material-icons">link</i></sub>
-                            </a>
-                        </span>
-                        <form class="searchevent" action="/CreateAddEvent" method="POST">
-                            <img src="{{ results[key][1] }}" alt="image of event">
-                            <dd><b>City: </b>{{ results[key][3] }}</dd>
-                            <dd><b>Date: </b>{{ results[key][4] }}</dd>
-                            <dd><b>Venue: </b>{{ results[key][2] }}</dd>
-                            <input type="text" name="overview" value="{{ key }}" hidden>
-                            <input type="text" name="city" value="{{ results[key][3] }}" hidden>
-                            <input type="text" name="datetime" value="{{ results[key][4] }}" hidden>
-                            <input type="text" name="image" value="{{ results[key][1] }}" hidden>
-                            
-                            <!-- this statement hides this section from guests browsing event search results  -->
-                            <div class="relevant-items d-flex justify-content-center">
-                                {% if "current_user" in session %}
-                                    <select name="plans" class="dropdown-items">
-                                        {% for plan in user_plans %}
-                                            <option value="{{ plan.plan_id }}">
-                                                {% if plan.overview == None %}
-                                                    Untitled
-                                                {% else %}
-                                                    {{ plan.overview }}
-                                                {% endif %}
-                                            </option>
-                                        {% endfor %}
-                                    </select>
-                                    <input class="btn btn-light btn-sm" type="submit" value="add">
-                                {% endif %}  
-                            </div>
-                        </form>
-                    </div>
-                {% endfor %}
-            </div>
-
-        </div>
-
-        <br><br><br>
-        
+    <div id="event-search-results" class="center whitesmoke">
+        <h2 class="neonText">Event Search Results</h2>
     </div>
 
-        
+    <br><br>
+
+    <!-- only shows up if the user has 0 created plans -->
+    <div class="no-relevant-items whitesmoke hide center">
+        <p>Create a plan to start adding events!</p>
+    </div>
+
+    <!-- SHOW EVENTS MATCHING THE USER'S SEARCH QUERIES -->
+    <div class="container-fluid center">
+            <div class="events-list">
+            {% for key in results.keys() %}
+                <div id="search-result-item">
+                    <span>
+                        <a href="{{ results[key][0] }}" title="{{ key }}" target=”_blank” >
+                            {{ key }} 
+                            <sub><i class="material-icons">link</i></sub>
+                        </a>
+                    </span>
+
+                    <form class="searchevent" action="/CreateAddEvent" method="POST">
+                        <img src="{{ results[key][1] }}" alt="image of event">
+                        <dd><b>City: </b>{{ results[key][3] }}</dd>
+                        <dd><b>Date: </b>{{ results[key][4] }}</dd>
+                        <dd><b>Venue: </b>{{ results[key][2] }}</dd>
+                        <input type="text" name="overview" value="{{ key }}" hidden>
+                        <input type="text" name="city" value="{{ results[key][3] }}" hidden>
+                        <input type="text" name="datetime" value="{{ results[key][4] }}" hidden>
+                        <input type="text" name="image" value="{{ results[key][1] }}" hidden>
+                        
+                        <!-- this hides this feature from guests/non users  -->
+                        <div class="relevant-items d-flex justify-content-center">
+                            {% if "current_user" in session %}
+                                <select name="plans" class="dropdown-items">
+                                    {% for plan in user_plans %}
+                                        <option value="{{ plan.plan_id }}">
+                                            {% if plan.overview == None %}
+                                                Untitled
+                                            {% else %}
+                                                {{ plan.overview }}
+                                            {% endif %}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <input class="btn btn-light btn-sm" type="submit" value="add">
+                            {% endif %}  
+                        </div>
+                    </form>
+                    
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <br><br><br>
+    
+</div>
+
+    
 
 {% endblock %}
 

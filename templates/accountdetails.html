@@ -24,31 +24,32 @@
 
     <br>
 
+    <!-- USER'S CREATED PLANS SECTION -->
     <div class="container-fluid pretty-box center">
         <h2 class="neonText">My Plans</h2>
         <br>
-            {% for plan in plans %}
-                <ol class="inline-button">
-                    <a href="/plan/{{ plan.plan_id }}">
-                        <button class="btn btn-outline-light">
-                            {% if plan.overview == None %}
-                                Untitled
-                            {% else %}
-                                {{ plan.overview }}
-                            {% endif %}
-                        </button>
-                    </a>
-                </ol>
-            {% endfor %}
-            <br><br>
-            <form class="d-flex justify-content-center" action="/user/{{ user.user_id }}" method="POST">
-                <select class="form-select" name="citynames" id="city-select">
-                    {% for place in all_locations %}
-                        <option value="{{ place.location_id }}">{{ place.cityname }}</option>
-                    {% endfor %}
-                </select>
-                <input type="submit" class="btn btn-outline-light" value="Create plan">
-            </form>
+        {% for plan in plans %}
+            <ol class="inline-button">
+                <a href="/plan/{{ plan.plan_id }}">
+                    <button class="btn btn-outline-light">
+                        {% if plan.overview == None %}
+                            Untitled
+                        {% else %}
+                            {{ plan.overview }}
+                        {% endif %}
+                    </button>
+                </a>
+            </ol>
+        {% endfor %}
+        <br><br>
+        <form class="d-flex justify-content-center" action="/user/{{ user.user_id }}" method="POST">
+            <select class="form-select" name="citynames" id="city-select">
+                {% for place in all_locations %}
+                    <option value="{{ place.location_id }}">{{ place.cityname }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" class="btn btn-outline-light" value="Create plan">
+        </form>
     </div>
 
     <hr>
@@ -57,6 +58,8 @@
     <div class="container-fluid center">
         <h2 class="neonText">Liked events</h2>
         <dd class="neonText">Hover over image to scroll left or right.</dd>
+
+        <!-- displays all the user's liked events to be scrolled horizontally -->
         <div class="horizontal-scroll">
             {% for event in event_list %}
                 <div class="image scroll-column">
@@ -66,8 +69,8 @@
                         <img class="image__img img-thumbnail rounded" src="static/img/event.jpeg" alt="default image of event">
                     {% endif %}
                     <div class="image__overlay image__overlay--blur">
-                        <p class="image__description center word-clip">
-                            <a class="light" href="/event/{{ event.event_id }}" title="{{ event.overview }}">
+                        <p class="image__description word-clip">
+                            <a href="/event/{{ event.event_id }}" title="{{ event.overview }}">
                                 {{ event.overview }}
                             </a>
                         </p>
