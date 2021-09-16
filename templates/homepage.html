@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 
-{% block title %}Homepage{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
 
@@ -8,7 +8,7 @@
     <nav class="navbar navbar-custom sticky-top border-bottom border-dark">
         <div class="container-fluid">
             <a class="navbar-brand light" href="/">
-                <sub><i class="material-icons">home</i></sub>Home
+                <sub><i class="material-icons">home</i></sub>SeeDo
             </a>
             <div>
                 {% if "current_user" not in session %}
@@ -57,7 +57,7 @@
                 {% endfor %}
             </select>
             <input class="form-control" type="text" name="keyword" placeholder="keyword">
-            <input type="date" name="date" placeholder="yyyy-mm-dd">
+            <input class="form-control" type="date" name="date" placeholder="yyyy-mm-dd">
             <input class="btn btn-outline-light btn-lg" type="submit" value="Search for events" name="search-button" id="search-button">
         </form>
     </div>

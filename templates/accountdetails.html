@@ -9,13 +9,12 @@
     <nav class="navbar navbar-custom sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand light" href="/">
-                <sub><i class="material-icons">home</i></sub>Home
+                <sub><i class="material-icons">home</i></sub>SeeDo
             </a>
             <div>
                 <span class="whitesmoke">
                     Welcome, {{ user.username.title() }} 
                 </span>
-                <a class="light" href="/user/{{ user.user_id }}">View Account</a>
                 <sub><i class="material-icons">account_circle</i></sub>
                 <a class="light" href="/goodbye">Logout</a>
                 <sub><i class="material-icons">logout</i></sub>

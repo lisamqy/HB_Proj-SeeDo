@@ -7,7 +7,7 @@
     <nav class="navbar navbar-custom sticky-top border-bottom border-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-            <sub><i class="material-icons">home</i></sub>Home
+            <sub><i class="material-icons">home</i></sub>SeeDo
             </a>
             <div>
                 {% if "current_user" not in session %}
@@ -43,12 +43,27 @@
         <div class="d-flex justify-content-center">
             <form action="/new" method="POST">
                 <label class="form-label">Username</label>
-                <input class="form-control" type="text" name="username" required><br>
+                <input
+                    class="form-control" 
+                    type="text" 
+                    name="username" required><br>
                 <label class="form-label">Email</label>
-                <input class="form-control" type="text" name="email" required><br>
+                <input
+                    class="form-control" 
+                    type="email" 
+                    name="email" 
+                    placeholder="ex: user@gmail.com" required><br>
                 <label class="form-label">Password</label>
-                <input class="form-control" type="password" name="password" required><br><br>
-                <input type="submit" class="btn btn-outline-light" value="Submit"><br><br>
+                <input 
+                    class="form-control" 
+                    type="password" 
+                    name="password" required><br>
+                <br>
+                <input 
+                    type="submit" 
+                    class="btn btn-outline-light" 
+                    value="Submit"><br>
+                <br>
             </form>
         </div>
     </div> 
