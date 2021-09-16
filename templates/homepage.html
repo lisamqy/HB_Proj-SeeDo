@@ -7,7 +7,7 @@
     <!-- NAVBAR -->
     <nav class="navbar navbar-custom sticky-top border-bottom border-dark">
         <div class="container-fluid">
-            <a class="navbar-brand light" href="/">
+            <a class="navbar-brand" href="/">
                 <sub><i class="material-icons">home</i></sub>SeeDo
             </a>
             <div>
@@ -25,11 +25,11 @@
                 {% endif %}
                 {% if "current_user" in session %}
                     <span class="whitesmoke">
-                        Welcome, {{ user.username.title() }} 
+                        Hello, {{ user.username.title() }} 
                     </span>
-                    <a class="light" href="/user/{{ user.user_id }}">View Account</a>
+                    <a href="/user/{{ user.user_id }}">View Account</a>
                     <sub><i class="material-icons">account_circle</i></sub>
-                    <a class="light" href="/goodbye">Logout</a>
+                    <a href="/goodbye">Logout</a>
                     <sub><i class="material-icons">logout</i></sub>
                 {% endif %}
             </div>
