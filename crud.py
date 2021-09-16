@@ -196,6 +196,12 @@ def add_plan_events(plan_id, event_id):
 
     return plan_event
 
+def check_plan_event_dupe(plan_id, event_id):
+    """Get number of time the event id + plan id in the planevent table to prevent dupes."""
+
+    return PlanEvent.query.filter_by(plan_id=plan_id, event_id=event_id).count()
+
+
 def del_from_planevent(event_id, plan_id):
     """Delete an event from current plan"""
     

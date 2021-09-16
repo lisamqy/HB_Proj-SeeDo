@@ -119,7 +119,7 @@ def user_page(user_id):
 
 @app.route("/user/<user_id>", methods=["POST"])
 def add_plan(user_id):
-    """Show user's account details"""
+    """Create a new plan"""
 
     location_id = request.form.get("citynames")
     crud.create_plan(user_id=user_id,location_id=location_id,overview=None)
@@ -204,9 +204,14 @@ def add_event_to_plan(event_id):
 
     event_id = event_id
     plan_id = request.form.get("plans")
-    crud.add_plan_events(plan_id=plan_id, event_id=event_id)
-    print(f'\n\n{event_id},{plan_id}\n\n')
+    in_plan_count = crud.check_plan_event_dupe(plan_id=plan_id, event_id=event_id)
+    if in_plan_count == 0:
+        crud.add_plan_events(plan_id=plan_id, event_id=event_id)
+    else:
+        flash("Event already in plan.")
+        return redirect(f"/event/{event_id}")
 
+    print(f'\n\n{event_id},{plan_id}\n\n')
     return redirect(f"/plan/{plan_id}")
 
 
