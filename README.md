@@ -80,20 +80,20 @@ Register to use the [Ticketmaster API] (https://developer.ticketmaster.com/produ
 Save your API keys in a file called <kbd>secrets.sh</kbd> using this format:
 
 ```
-export TICKETMASTERKEY="YOUR_KEY_HERE"
+$ export TICKETMASTERKEY="YOUR_KEY_HERE"
 ```
 
 Source your keys from your secrets.sh file into your virtual environment:
 
 ```
-source secrets.sh
+$ source secrets.sh
 ```
 
 Set up the database:
 
 ```
-createdb project
-python3 model.py
+$ createdb project
+$ python3 model.py
 ```
 
 Seed database with data (optional):
@@ -104,7 +104,7 @@ $ python3 seed.py
 Run the app:
 
 ```
-python3 server.py
+$ python3 server.py
 ```
 
 You can now navigate to 'localhost:5000/' 
