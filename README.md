@@ -20,7 +20,7 @@ __Back End:__ Python, Flask, PostgreSQL, SQLAlchemy <br/>
 Search for events within a city with the keyword or date of your choosing:
     ![Event Search](/static/gif-demo/event-search.gif)
 
-<br/><br/>
+<br/>
 
 Logged-in users can create/edit plans, add events to their plans, and give likes to events:
     ![Edit User Plan](/static/gif-demo/edit-plan.gif)
@@ -29,13 +29,11 @@ Logged-in users can create/edit plans, add events to their plans, and give likes
         <li> adding selected event from the dropdown to the plan </li>
         <li> updating the plan's name/overview </li>
     </ul>
-    <br/>
     ![Create Plan](/static/gif-demo/create-plan.gif)
     <ul>⬆️ Shown in gif above ⬆️
         <li> user creating a plan based in Las Vegas </li>
         <li> choosing an event located in Las Vegas to add to the current plan </li>
     </ul>
-    <br/>
     ![Like Event](/static/gif-demo/liked-event.gif)
     <ul>⬆️ Shown in gif above ⬆️
         <li> user liking an event </li>
