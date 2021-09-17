@@ -9,7 +9,7 @@
 *   [About the Developer](#developer)
 
 ## <a name="description"></a>Description
-**SeeDo** is a full stack web application for users to search for events to then add to their plan(s) if they wish.
+**SeeDo** is a full stack web app that allows users to find and plan events to do either now or later. It is for anyone to use, especially those who enjoy planning trips, going to shows or even just browsing for events. Once logged in, a user can create their own plans for different cities within the US and then search for events to add to their existing plans. If they find events that catch their eyes, users can choose to give it a like--which will then displayed the event on their account page. After staying home for a long period, SeeDo can be the tool to help one find something fun to do!
 
 ## <a name="tech-stack"></a>Tech Stack
 __Front End:__ JavaScript, Jinja2, AJAX, jQuery, HTML5, CSS, Bootstrap<br/>
